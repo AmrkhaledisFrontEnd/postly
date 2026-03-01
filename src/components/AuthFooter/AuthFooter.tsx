@@ -3,11 +3,11 @@ import Link from "next/link";
 function AuthFooter({
   questionText,
   linkText,
-  href,
+  href
 }: {
   questionText: string;
   linkText: string;
-  href: string;
+  href:string
 }) {
   return (
     <div className="bg-[#F7F7F7] flex flex-col items-center py-4 gap-3 ">
@@ -15,7 +15,7 @@ function AuthFooter({
         {questionText}
         <Link
           className="text-[#494a55] font-semibold hover:underline hover:text-[#5e5f6a]"
-          href={"/"}
+          href={href}
         >
           {linkText}
         </Link>
@@ -24,7 +24,7 @@ function AuthFooter({
         <span className="font-medium text-[#29272b]"> Secured by</span>
         <Link
           className="text-[#4A33F6] font-bold uppercase"
-          href={href}
+          href="https://amr-khaled-site.netlify.app/"
           target="_blank"
         >
           Amr Khaled
