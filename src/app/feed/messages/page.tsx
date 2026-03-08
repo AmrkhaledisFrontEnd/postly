@@ -1,3 +1,4 @@
+import PageHeader from "@/components/PageHeader/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
 import { randomUUID } from "node:crypto";
@@ -25,12 +26,7 @@ function page() {
   ];
   return (
     <main className="flex-1 min-h-screen bg-indigo-50 p-5 space-y-10">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Messages</h1>
-        <p className="text-gray-400 font-semibold">
-          Talk to your friends and family
-        </p>
-      </div>
+      <PageHeader title="Messages" subtitle="Talk to your friends and family" />
       <ul className="grid grid-cols-2 gap-2">
         {users.map((user) => (
           <li
