@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa6";
 import { LuShare2 } from "react-icons/lu";
-import PostMedia from "./PostMedia";
+import PostMedia from "./_components/PostMedia";
 //=============================================================================
 dayjs.extend(relativeTime);
 function PostCard({ post }: { post: any }) {

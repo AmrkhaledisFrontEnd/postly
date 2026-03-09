@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className=" bg-indigo-50">
-      <div className="max-w-425 flex gap-7 mx-auto">
+      <div className="max-w-425 flex gap-5 mx-auto">
         <Sidebar />
         {children}
       </div>

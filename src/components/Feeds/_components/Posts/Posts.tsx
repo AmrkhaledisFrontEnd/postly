@@ -1,4 +1,4 @@
-import PostCard from "./_components/PostCard";
+import PostCard from "../../../PostCard/PostCard";
 // ===============================================================================
 function Posts({ posts }: { posts: any }) {
   return (
