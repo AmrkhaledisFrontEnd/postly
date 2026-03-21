@@ -10,20 +10,26 @@ datasource db {
 
 model User {
   id               String    @id @default(cuid())
+  email            String    @unique
   name             String?
-  email            String?   @unique
   password         String?
   image            String?
+  cover            String?
   location         String?
   bio              String?
-  username         String?
+  username         String?   @unique
   emailVerified    DateTime? @map("email_verified")
   accounts         Account[]
   stories          Story[]
   posts            Post[]
   sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
+  loves            Love[]
+  comments         Comment[]
+  createdAt        DateTime  @default(now())
 
+  @@index([name])
+  @@index([location])
   @@map("users")
 }
 
@@ -40,12 +46,34 @@ model Story {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   content   String?
   media     String?
   mediaType String?
   userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  loves     Love[]
+  comments  Comment[]
+}
+
+model Love {
+  id     String @id @default(cuid())
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
+  content   String
   createdAt DateTime @default(now())
 }
 

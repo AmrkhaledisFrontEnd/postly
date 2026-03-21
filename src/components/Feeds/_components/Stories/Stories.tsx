@@ -43,7 +43,7 @@ function Stories({
               src={story.user.image ? story.user.image : "/user.jpg"}
               width={50}
               height={50}
-              className="size-8 z-10 rounded-full absolute top-2 left-2 border border-white"
+              className="size-8 z-10 rounded-full absolute top-2 left-2 border border-white object-cover"
               alt="user image"
             />
             {story.media ? (
@@ -63,7 +63,7 @@ function Stories({
                 />
               )
             ) : (
-              <p className="text-white line-clamp-3 text-sm px-3">
+              <p className="text-white line-clamp-3 text-sm px-3 text-center">
                 {story.text}
               </p>
             )}

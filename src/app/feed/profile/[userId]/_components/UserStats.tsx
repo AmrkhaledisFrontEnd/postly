@@ -1,8 +1,15 @@
-function UserStats() {
+import { Prisma } from "@prisma/client";
+// =======================================================
+type User = Prisma.UserGetPayload<{
+  include: {
+    posts: true;
+  };
+}>;
+function UserStats({ user }: { user: User }) {
   const userStats = [
-    { id: "posts", count: 0, label: "Posts" },
-    { id: "posts", count: 3, label: "Followers" },
-    { id: "posts", count: 1, label: "Following" },
+    { id: "posts", count: user.posts.length, label: "Posts" },
+    { id: "followers", count: 3, label: "Followers" },
+    { id: "following", count: 1, label: "Following" },
   ];
   return (
     <div className="flex items-center gap-10 pt-1">

@@ -1,9 +1,10 @@
+import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { FiUserPlus } from "react-icons/fi";
 import { SlLocationPin } from "react-icons/sl";
 // =====================================================================
-function DiscoverUserCard({ user }: { user: any }) {
+function DiscoverUserCard({ user }: { user: User }) {
   return (
     <div
       className="p-5 border border-gray-200 bg-white rounded-md flex flex-col items-center gap-1 hover:shadow-2xl transition-css"
@@ -18,8 +19,8 @@ function DiscoverUserCard({ user }: { user: any }) {
         />
       </div>
       <Link
-        href={"/"}
-        className="font-semibold text-[17px] hover:underline hover:text-indigo-500"
+        href={`/feed/profile/${user.id}`}
+        className="font-semibold text-[17px] hover:underline hover:text-indigo-500 capitalize"
       >
         {user.name}
       </Link>
@@ -33,7 +34,7 @@ function DiscoverUserCard({ user }: { user: any }) {
           </h3>
         )}
         <h3 className="border border-gray-200 rounded-full text-slate-500 px-4 flex items-center gap-1 font-semibold text-xs py-1">
-          <span> {user.followers}</span> Followers
+          <span>0</span> Followers
         </h3>
       </div>
       <button className="text-white flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2 w-full rounded-md cursor-pointer mt-3">

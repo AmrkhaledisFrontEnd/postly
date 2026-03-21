@@ -17,5 +17,11 @@ export type UserDbType = Prisma.UserGetPayload<{
 export type PostDbCacheType = Prisma.PostGetPayload<{
   include: {
     user: true;
+    loves: true;
+    comments: {
+      include: {
+        user: true;
+      };
+    };
   };
 }>;

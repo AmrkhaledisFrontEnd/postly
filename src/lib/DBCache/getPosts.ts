@@ -6,6 +6,15 @@ export const getPosts = Cache(
     const posts = await prisma.post.findMany({
       include: {
         user: true,
+        loves: true,
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",

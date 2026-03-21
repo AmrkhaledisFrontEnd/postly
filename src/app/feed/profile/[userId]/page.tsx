@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Cover from "./_components/Cover";
 import UserStats from "./_components/UserStats";
-import EditProfile from "./_components/EditProfile";
+import EditProfile from "./_components/EditProfile/EditProfile";
 import UserDetails from "./_components/UserDetails";
 import { redirect } from "next/navigation";
 import ProfilePosts from "./_components/ProfilePosts";
 import { prisma } from "@/lib/prisma";
+import { GetSession } from "@/lib/GetSession";
 // =============================================================
 async function Profile({ params }: { params: Promise<{ userId: string }> }) {
+  const userSession = await GetSession();
+  if (!userSession) return redirect("/login");
   const { userId } = await params;
   if (!userId) return redirect("/login");
   const user = await prisma.user.findUnique({
@@ -18,6 +21,12 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
       posts: {
         include: {
           user: true,
+          loves: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",
@@ -30,7 +39,7 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
     <main className="flex-1 flex justify-center py-5">
       <div className="w-3xl h-fit space-y-5">
         <div className="shadow overflow-hidden rounded-lg h-fit">
-          <Cover />
+          <Cover user={user} />
           <div className="flex gap-3 bg-white">
             <Image
               src={user.image || "/user.jpg"}
@@ -40,9 +49,9 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
               className="rounded-full shrink-0 size-30 ml-5 ring-3 ring-white -mt-13 shadow-2xl object-cover bg-white"
             />
             <div className="w-full pr-5 pt-2 pb-4 relative space-y-2">
-              <UserDetails user={user}/>
-              <UserStats />
-              <EditProfile />
+              <UserDetails user={user} />
+              <UserStats user={user} />
+              {userSession.id === user.id && <EditProfile userSession={user} />}
             </div>
           </div>
         </div>
