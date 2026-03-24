@@ -25,3 +25,22 @@ export type PostDbCacheType = Prisma.PostGetPayload<{
     };
   };
 }>;
+export type UserWithRelations = Prisma.UserGetPayload<{
+  include: {
+    receiverRequests: {
+      include: {
+        sentRequests: true;
+      };
+    };
+    followers: {
+      include: {
+        follower: true;
+      };
+    };
+    followings: {
+      include: {
+        following: true;
+      };
+    };
+  };
+}>;

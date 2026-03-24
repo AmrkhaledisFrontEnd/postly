@@ -95,8 +95,8 @@ function CreateStoryModal({
     }
   };
   return (
-    <div className="fixed inset-0 bg-black/80 z-40 backdrop-blur flex items-center justify-center text-white">
-      <div className="w-120 space-y-3 boxCreateStory relative">
+    <div className="fixed inset-0 px-4 bg-black/80 z-40 backdrop-blur flex items-center justify-center text-white">
+      <div className="md:w-120 w-full sm:space-y-3 space-y-1 boxCreateStory relative">
         <div className="w-full flex items-center justify-between">
           <button
             onClick={() => setIsModalOpen(false)}

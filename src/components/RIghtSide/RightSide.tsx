@@ -3,7 +3,7 @@ import RecentMessages from "./_components/RecentMessages";
 // ======================================================================
 function RightSide() {
   return (
-    <div className="w-75 py-10 pr-3 space-y-3">
+    <div className="xl:w-75 lg:w-70 lg:block hidden py-10 pr-3 space-y-3">
       <Head />
       <RecentMessages />
     </div>

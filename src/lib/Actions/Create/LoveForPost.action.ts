@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 // ===============================================
-export const CreateLoveAction = async (
+export const LoveAction = async (
   userId: string,
   postId: string,
 ): Promise<{ success: boolean; message?: string }> => {

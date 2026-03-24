@@ -45,7 +45,6 @@ export const MessageAction = async (
         },
         data: {
           content,
-          isEdited: true,
         },
       });
     }

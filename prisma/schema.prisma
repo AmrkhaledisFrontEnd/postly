@@ -7,7 +7,6 @@ datasource db {
 }
 
 // =====================================================================
-
 model User {
   id               String    @id @default(cuid())
   email            String    @unique
@@ -27,10 +26,24 @@ model User {
   loves            Love[]
   comments         Comment[]
   createdAt        DateTime  @default(now())
+  sentRequests     Pending[] @relation("sender")
+  receiverRequests Pending[] @relation("receiver")
+  followers        Follow[]  @relation("followings")
+  followings       Follow[]  @relation("followers")
 
   @@index([name])
   @@index([location])
   @@map("users")
+}
+
+model Follow {
+  id          String @id @default(cuid())
+  followerId  String
+  followingId String
+  follower    User   @relation("followers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User   @relation("followings", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
 }
 
 model Story {
@@ -40,7 +53,7 @@ model Story {
   mediaType String?
   userId    String
   storyBg   String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   expiresAt DateTime
 }
@@ -51,7 +64,7 @@ model Post {
   media     String?
   mediaType String?
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
   loves     Love[]
   comments  Comment[]
@@ -60,9 +73,9 @@ model Post {
 model Love {
   id     String @id @default(cuid())
   postId String
-  post   Post   @relation(fields: [postId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
 }
@@ -71,20 +84,30 @@ model Comment {
   id        String   @id @default(cuid())
   postId    String
   userId    String
-  post      Post     @relation(fields: [postId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   String
   createdAt DateTime @default(now())
+}
+
+model Pending {
+  id                 String   @id @default(cuid())
+  sentRequestsId     String
+  receivedRequestsId String
+  sentRequests       User     @relation("sender", fields: [sentRequestsId], references: [id], onDelete: Cascade)
+  receivedRequests   User     @relation("receiver", fields: [receivedRequestsId], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
+
+  @@unique([sentRequestsId, receivedRequestsId])
 }
 
 model Message {
   id         String   @id @default(cuid())
   content    String
-  isEdited   Boolean?
   senderId   String
   receiverId String
-  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
-  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 }
 

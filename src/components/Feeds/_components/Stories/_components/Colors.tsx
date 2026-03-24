@@ -17,7 +17,7 @@ function Colors({
         <button
           onClick={() => setStoryBgColor(color)}
           style={{ backgroundColor: color }}
-          className={`size-6 ring cursor-pointer ${storyBgColor === color && "ring-2"}`}
+          className={`sm:size-6 size-4 ring cursor-pointer ${storyBgColor === color && "ring-2"}`}
           key={index}
         />
       ))}

@@ -1,21 +1,41 @@
+"use client";
 import Nav from "./_components/Nav";
 import Head from "./_components/Head";
 import UserProfileCard from "./_components/UserProfileCard";
-import { GetSession } from "@/lib/GetSession";
 import { User } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { RiMenu2Line } from "react-icons/ri";
+import { useEffect, useState } from "react";
 // =======================================================================
-async function Sidebar() {
-  const userSession: User | null = await GetSession();
-  if (!userSession) return redirect("/");
+function Sidebar({ userSession }: { userSession: User }) {
+  const [openSideBar, setOpenSideBar] = useState(false);
+  useEffect(() => {
+    const handle = (e: MouseEvent) => {
+      if (e.target instanceof Element) {
+        if (!e.target.closest(".buttonOpenSideBar, .sideBar"))
+          setOpenSideBar(false);
+      }
+    };
+    document.addEventListener("click", handle);
+    return () => document.removeEventListener("click", handle);
+  }, []);
   return (
-    <aside className="bg-white border-r border-r-gray-100 w-60 h-screen flex flex-col justify-between sticky top-0 shrink-0 ">
-      <div className="space-y-3">
-        <Head />
-        <Nav user={userSession} />
-      </div>
-      <UserProfileCard userSession={userSession} />
-    </aside>
+    <>
+      <button
+        onClick={() => setOpenSideBar(!openSideBar)}
+        className="md:hidden   buttonOpenSideBar transition-css active:scale-90 hover:scale-105 block fixed top-1 left-1 sm:text-2xl text-sm bg-indigo-500 p-2 rounded-full cursor-pointer text-white shadow z-35"
+      >
+        <RiMenu2Line />
+      </button>
+      <aside
+        className={`bg-white shrink-0 sideBar md:pt-0 sm:pt-10 pt-5 md:z-0 z-30 border-r border-r-gray-100 w-60 h-screen flex flex-col justify-between md:sticky fixed top-0 ${openSideBar ? "left-0" : "-left-400"} transition-css  `}
+      >
+        <div className="space-y-3">
+          <Head />
+          <Nav user={userSession} />
+        </div>
+        <UserProfileCard userSession={userSession} />
+      </aside>
+    </>
   );
 }
 

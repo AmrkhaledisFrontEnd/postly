@@ -45,7 +45,7 @@ function Nav({user}:{user:User}) {
           <li key={link.id}>
             <Link
               href={link.href}
-              className={`flex items-center gap-2 hover:text-indigo-700 capitalize font-medium hover:shadow text-[17px] tracking-[0.3px] transition-css hover:bg-gray-50 py-1.5 px-3 rounded-xl 
+              className={`flex items-center gap-2 hover:text-indigo-700 capitalize font-medium hover:shadow sm:text-[17px] tracking-[0.3px] transition-css hover:bg-gray-50 py-1.5 px-3 rounded-xl 
                  ${pathname === link.href && "text-indigo-700 bg-gray-50 shadow"}`}
             >
               <i className="text-xl">{link.icon}</i>
@@ -56,7 +56,7 @@ function Nav({user}:{user:User}) {
       </ul>
       <Link
         href={"/feed/post/create"}
-        className="flex items-center hover:scale-101 transition-css hover:-translate-y-0.5 justify-center gap-2 w-full shadow font-semibold mt-5 bg-linear-to-r from-indigo-700 to-purple-800 text-white py-2 px-3 rounded-md"
+        className="flex items-center hover:scale-101 transition-css hover:-translate-y-0.5 justify-center gap-2 w-full shadow font-semibold mt-5 sm:text-[15px] text-sm bg-linear-to-r from-indigo-700 to-purple-800 text-white py-2 px-3 rounded-md"
       >
         <i className="text-xl">
           <BiPlusCircle />

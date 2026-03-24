@@ -13,16 +13,16 @@ function PublisherDetails({ post }: { post: PostDbCacheType }) {
         alt="user image"
         width={50}
         height={50}
-        className="rounded-full object-cover size-11"
+        className="rounded-full object-cover md:size-11 sm:size-10 size-9"
       />
       <div>
         <Link
           href={`/feed/profile/${post.userId}`}
-          className="text-[18px] font-semibold capitalize hover:underline"
+          className="sm:text-[18px] font-semibold capitalize hover:underline"
         >
           {post.user.name}
         </Link>
-        <h4 className="text-xs text-gray-400 font-normal">
+        <h4 className="sm:text-xs text-[10px] text-gray-400 font-normal">
           {dayjs(post.createdAt).fromNow()}
         </h4>
       </div>

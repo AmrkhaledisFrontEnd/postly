@@ -44,7 +44,7 @@ function CreateComment({
         alt="your image"
         width={50}
         height={50}
-        className="rounded-full object-cover w-10 h-10"
+        className="rounded-full object-cover sm:size-10 size-8 shrink-0"
       />
       <div className="flex items-center gap-1 border-b border-b-gray-500 w-full  focus-within:border-b-indigo-500">
         <input
@@ -57,13 +57,13 @@ function CreateComment({
           disabled={loading}
           ref={inputRef}
           type="text"
-          className=" outline-none py-1 flex-1"
+          className=" outline-none py-1 flex-1 sm:text-[15px] text-sm"
           placeholder="Add Comment..."
         />
         <button
           onClick={handleCreateComment}
           disabled={loading}
-          className="text-xl cursor-pointer text-indigo-500 hover:translate-x-2 px-2 transition-css hover:scale-105"
+          className="sm:text-xl cursor-pointer text-indigo-500 hover:translate-x-2 px-2 transition-css hover:scale-105"
         >
           <IoSend />
         </button>

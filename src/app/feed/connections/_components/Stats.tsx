@@ -1,9 +1,14 @@
-function Stats() {
+import { UserWithRelations } from "@/lib/types";
+// ===================================================================
+function Stats({
+  userSession,
+}: {
+  userSession: UserWithRelations;
+}) {
   const stats = [
-    { count: 1, label: "Followers" },
-    { count: 2, label: "Following" },
-    { count: 2, label: "Pending" },
-    { count: 0, label: "Connections" },
+    { count: userSession.followers.length, label: "Followers" },
+    { count: userSession.followings.length, label: "Following" },
+    { count: userSession.receiverRequests.length, label: "Pending" },
   ];
   return (
     <ul className="flex items-center gap-4">

@@ -47,7 +47,7 @@ function StoryContent({
           value={text}
           onChange={(e) => setText(e.target.value)}
           dir="auto"
-          className="bg-transparent h-85 w-full font-semibold  outline-none p-4 resize-none rounded"
+          className="bg-transparent md:h-85 sm:h-75 h-65 w-full sm:font-semibold sm:text-[15px] text-sm outline-none p-4 resize-none rounded"
           placeholder="What's on your mind?"
         />
       )}

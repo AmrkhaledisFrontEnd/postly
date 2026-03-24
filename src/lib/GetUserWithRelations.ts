@@ -1,7 +1,6 @@
 "use server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-
 // =====================================================================
 export const GetUserWithRelations = async () => {
   const session = await auth();
@@ -16,6 +15,32 @@ export const GetUserWithRelations = async () => {
         },
         orderBy: {
           createdAt: "desc",
+        },
+      },
+      followers: {
+        include: {
+          follower: {
+            include: {
+              stories: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      followings: {
+        include: {
+          following: {
+            include: {
+              stories: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
         },
       },
     },

@@ -4,7 +4,11 @@ import { prisma } from "@/lib/prisma";
 export const getUsers = Cache(
   async () => {
     const users = await prisma.user.findMany({
-      take: 6,
+      take: 9,
+      include: {
+        followers: true,
+        followings: true,
+      },
     });
     return users;
   },

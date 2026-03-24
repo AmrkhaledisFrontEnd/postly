@@ -18,6 +18,11 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
       id: userId,
     },
     include: {
+      receiverRequests: {
+        include: {
+          sentRequests: true,
+        },
+      },
       posts: {
         include: {
           user: true,
@@ -30,6 +35,16 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
         },
         orderBy: {
           createdAt: "desc",
+        },
+      },
+      followers: {
+        include: {
+          follower: true,
+        },
+      },
+      followings: {
+        include: {
+          following: true,
         },
       },
     },
@@ -49,7 +64,7 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
               className="rounded-full shrink-0 size-30 ml-5 ring-3 ring-white -mt-13 shadow-2xl object-cover bg-white"
             />
             <div className="w-full pr-5 pt-2 pb-4 relative space-y-2">
-              <UserDetails user={user} />
+              <UserDetails user={user} userSession={userSession} />
               <UserStats user={user} />
               {userSession.id === user.id && <EditProfile userSession={user} />}
             </div>

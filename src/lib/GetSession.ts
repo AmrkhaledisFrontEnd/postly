@@ -15,6 +15,21 @@ export const GetSession = async () => {
           user: true,
         },
       },
+      receiverRequests: {
+        include: {
+          sentRequests: true,
+        },
+      },
+      followers: {
+        include: {
+          follower: true,
+        },
+      },
+      followings: {
+        include: {
+          following: true,
+        },
+      },
     },
   });
 

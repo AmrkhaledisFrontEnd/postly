@@ -3,13 +3,15 @@ import { Prisma } from "@prisma/client";
 type User = Prisma.UserGetPayload<{
   include: {
     posts: true;
+    followers: true;
+    followings: true;
   };
 }>;
 function UserStats({ user }: { user: User }) {
   const userStats = [
     { id: "posts", count: user.posts.length, label: "Posts" },
-    { id: "followers", count: 3, label: "Followers" },
-    { id: "following", count: 1, label: "Following" },
+    { id: "followers", count: user.followers.length, label: "Followers" },
+    { id: "following", count: user.followings.length, label: "Following" },
   ];
   return (
     <div className="flex items-center gap-10 pt-1">

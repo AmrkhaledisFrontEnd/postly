@@ -22,22 +22,29 @@ function Stories({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewStory, setViewStory] = useState<StoryType | null>(null);
   return (
-    <Swiper slidesPerView={"auto"} spaceBetween={10} className="flex-1">
-      <SwiperSlide style={{ maxWidth: "144px" }}>
+    <Swiper
+      slidesPerView={"auto"}
+      spaceBetween={8}
+      className="flex-1"
+    >
+      <SwiperSlide className="sm:max-w-36! max-w-25!">
         <div
           onClick={() => setIsModalOpen(true)}
-          className="cursor-pointer hover:scale-95 transition-css active:scale-90 relative shrink-0 bg-linear-to-b from-indigo-50 to-white h-45 shadow border border-dashed border-indigo-500 rounded-lg flex flex-col items-center justify-center"
+          className="cursor-pointer hover:scale-95 transition-css active:scale-90 relative shrink-0 bg-linear-to-b from-indigo-50 to-white sm:h-45 h-35 shadow border border-dashed border-indigo-500 rounded-lg flex flex-col items-center justify-center"
         >
-          <AiFillPlusCircle className="size-8 text-indigo-500 rounded-full" />
-          <p>Create story</p>
+          <AiFillPlusCircle className="sm:size-8 size-6 text-indigo-500 rounded-full" />
+          <p className="sm:text-[15px] text-sm">Create story</p>
         </div>
       </SwiperSlide>
       {stories.map((story) => (
-        <SwiperSlide key={story.id} style={{ maxWidth: "144px" }}>
+        <SwiperSlide key={story.id} className="sm:max-w-36! max-w-25!">
           <div
-            style={{ backgroundColor: story.storyBg && !story.media ? story.storyBg : "#000000" }}
+            style={{
+              backgroundColor:
+                story.storyBg && !story.media ? story.storyBg : "#000000",
+            }}
             onClick={() => setViewStory(story)}
-            className="rounded-lg select-none cursor-pointer h-45 relative shadow flex items-center justify-center overflow-hidden shrink-0 group"
+            className="rounded-lg select-none cursor-pointer sm:h-45 h-35 relative shadow flex items-center justify-center overflow-hidden shrink-0 group"
           >
             <Image
               src={story.user.image ? story.user.image : "/user.jpg"}

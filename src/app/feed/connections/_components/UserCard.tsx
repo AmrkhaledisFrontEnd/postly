@@ -1,10 +1,23 @@
+"use client";
+import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegMessage } from "react-icons/fa6";
+import ButtonAcceptFollow from "./Buttons/ButtonAcceptFollow";
+import ButtonUnFollow from "./Buttons/ButtonUnFollow";
+import { UserWithRelations } from "@/lib/types";
 // ===================================================
-function UserCard({ user, tapText }: { user: any; tapText: string }) {
+function UserCard({
+  user,
+  userSession,
+  tapText,
+}: {
+  user: UserWithRelations;
+  userSession: User;
+  tapText: string;
+}) {
   return (
-    <div className="p-4 bg-white shadow rounded-md space-y-3">
+    <div className="p-4 bg-white shadow rounded-md space-y-3 w-full">
       <div className="flex gap-2 items-center">
         <Image
           src={user.image ? user.image : "/user.jpg"}
@@ -15,7 +28,9 @@ function UserCard({ user, tapText }: { user: any; tapText: string }) {
         />
         <div className="space-y-4 w-ful">
           <div className="space-y-1">
-            <h2 className="font-semibold text-[16px] capitalize">{user.name}</h2>
+            <h2 className="font-semibold text-[16px] capitalize">
+              {user.name}
+            </h2>
             <p className="text-gray-400 font-normal text-xs">{user.username}</p>
             <p className="line-clamp-1 text-sm text-gray-600">{user.bio}</p>
           </div>
@@ -29,17 +44,19 @@ function UserCard({ user, tapText }: { user: any; tapText: string }) {
           View Profile
         </Link>
         {tapText === "following" && (
-          <button className="text-slate-800 h-8 flex items-center justify-center hover:scale-103 transition-css cursor-pointer bg-gray-200 py-2 px-4 rounded font-medium text-sm tracking-[0.4px] flex-1">
-            Unfollow
-          </button>
+          <ButtonUnFollow followerId={userSession.id} followingId={user.id} />
         )}
         {tapText === "pending" && (
-          <button className="text-slate-800 h-8 flex items-center justify-center hover:scale-103 transition-css cursor-pointer bg-gray-200 py-2 px-4 rounded font-medium text-sm tracking-[0.4px] flex-1">
-            Accept
-          </button>
+          <ButtonAcceptFollow
+            followerId={user.id}
+            followingId={userSession.id}
+          />
         )}
         {tapText === "connections" && (
-          <Link href={`/feed/messages/${user.id}`} className="text-slate-800 h-8 flex items-center justify-center  hover:scale-103 transition-css cursor-pointer bg-gray-200 py-2 px-4 rounded font-medium text-sm tracking-[0.4px] flex-1">
+          <Link
+            href={`/feed/messages/${user.id}`}
+            className="text-slate-800 h-8 flex items-center justify-center  hover:scale-103 transition-css cursor-pointer bg-gray-200 py-2 px-4 rounded font-medium text-sm tracking-[0.4px] flex-1"
+          >
             <FaRegMessage />
           </Link>
         )}

@@ -23,6 +23,15 @@ export async function GET(req: NextRequest) {
         orderBy: {
           createdAt: "desc",
         },
+        include: {
+          receiverRequests: {
+            include: {
+              sentRequests: true,
+            },
+          },
+          followers: true,
+          followings: true,
+        },
       });
       return NextResponse.json(users, { status: 200 });
     }

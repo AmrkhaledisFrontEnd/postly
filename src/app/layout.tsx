@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Outfit, Figtree } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
+
+
 // ===================================================================================================
 const outfit = Outfit({
   subsets: ["latin"],
@@ -20,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", figtree.variable)}>
       <body
         className={`${outfit.className} antialiased [word-break:break-word] overflow-x-hidden`}
       >

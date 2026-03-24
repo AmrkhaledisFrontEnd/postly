@@ -1,5 +1,5 @@
 "use client";
-import { CreateLoveAction } from "@/lib/Actions/Create/CreateLoveForPost.action";
+import {  LoveAction } from "@/lib/Actions/Create/LoveForPost.action";
 import { PostDbCacheType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,7 +13,7 @@ function Love({ userId, post }: { userId: string; post: PostDbCacheType }) {
   const isExistingLove = post.loves.find((l) => l.userId === userId);
   const handleLove = async () => {
     setLoading(true);
-    const result = await CreateLoveAction(userId, post.id);
+    const result = await LoveAction(userId, post.id);
     setLoading(false);
     if (!result.success && result.message)
       return toast.error(result.message, { className: "toast-font" });

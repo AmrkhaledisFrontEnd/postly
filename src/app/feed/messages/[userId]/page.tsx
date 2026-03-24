@@ -22,10 +22,11 @@ async function Chat({ params }: { params: Promise<{ userId: string }> }) {
         { senderId: userId, receiverId: userSession.id },
       ],
     },
-    orderBy:{
-      createdAt:"asc"
-    }
+    orderBy: {
+      createdAt: "asc",
+    },
   });
+  if (userId === userSession.id) return redirect("/feed");
   return (
     <main className="min-h-screen flex-1 space-y-3 pr-5">
       <UserReceiverDetails user={receiver} />

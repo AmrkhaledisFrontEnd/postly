@@ -11,9 +11,7 @@ export const getPosts = Cache(
           include: {
             user: true,
           },
-          orderBy: {
-            createdAt: "desc",
-          },
+          orderBy: { createdAt: "desc" },
         },
       },
       orderBy: {

@@ -1,5 +1,7 @@
 import Sidebar from "@/components/Sidebar/Sidebar";
+import { GetSession } from "@/lib/GetSession";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import React from "react";
 // ==================================================================
 export const metadata: Metadata = {
@@ -7,11 +9,13 @@ export const metadata: Metadata = {
   description:
     "Stay updated on Postly Feed—see posts from friends, explore trending ideas, and discover the latest news all in one place.",
 };
-function layout({ children }: { children: React.ReactNode }) {
+async function layout({ children }: { children: React.ReactNode }) {
+  const userSession = await GetSession();
+  if (!userSession) return redirect("/login");
   return (
-    <div className=" bg-indigo-50">
-      <div className="max-w-425 flex gap-5 mx-auto">
-        <Sidebar />
+    <div className=" bg-indigo-50 h-screen">
+      <div className="max-w-425 flex lg:gap-5 mx-auto">
+        <Sidebar userSession={userSession} />
         {children}
       </div>
     </div>

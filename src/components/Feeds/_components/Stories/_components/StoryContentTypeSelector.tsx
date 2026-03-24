@@ -28,13 +28,13 @@ function StoryContentTypeSelector({
           setMediaPreview("");
           textareaRef.current?.focus();
         }}
-        className="flex-1 bg-white  hover:scale-102 transition-css text-black py-2 cursor-pointer rounded text-xl flex items-center justify-center"
+        className="flex-1 bg-white  hover:scale-102 transition-css text-black py-2 cursor-pointer rounded sm:text-xl flex items-center justify-center"
       >
         <LuText />
       </button>
       <label
         htmlFor="select_media"
-        className="flex-1 flex  hover:scale-102 transition-css items-center gap-3 justify-center text-[17px] cursor-pointer font-semibold bg-black/20 py-2  rounded"
+        className="flex-1 flex  hover:scale-102 transition-css items-center gap-3 justify-center sm:text-[17px] cursor-pointer font-semibold bg-black/20 py-2  rounded"
       >
         <MdUpload size={23} />
         Photo/Video

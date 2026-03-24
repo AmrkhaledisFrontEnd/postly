@@ -19,7 +19,11 @@ function UserReceiverDetails({ user }: { user: User }) {
         >
           {user.name}
         </Link>
-        <h3 className="text-sm font-normal text-gray-500">@mohammed</h3>
+        {user.username && (
+          <h3 className="text-sm font-normal text-gray-500">
+            @{user.username}
+          </h3>
+        )}
       </div>
     </div>
   );

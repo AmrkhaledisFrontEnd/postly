@@ -5,16 +5,30 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import toast from "react-hot-toast";
-import { FiImage } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import ReactPlayer from "react-player";
+import { FiPaperclip } from "react-icons/fi";
+import { PostDbCacheType } from "@/lib/types";
+import { EditPostAction } from "@/lib/Actions/Edit/EditPost.action";
+import { useRouter } from "next/navigation";
 // =========================================================================
-function PostComposer({ userSession }: { userSession: User }) {
+function PostComposer({
+  userSession,
+  postEdit,
+}: {
+  userSession: User;
+  postEdit?: PostDbCacheType;
+}) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState("");
-  const [mediaPreview, setMediaPreview] = useState("");
+  const [content, setContent] = useState(postEdit?.content || "");
+  const [mediaPreview, setMediaPreview] = useState(postEdit?.media || "");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
-  const isVideo = !!mediaFile?.type.startsWith("video");
+  const isVideo = mediaFile
+    ? !!mediaFile.type.startsWith("video")
+      ? "video"
+      : "image"
+    : postEdit?.mediaType;
   const changeEvent = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -26,7 +40,7 @@ function PostComposer({ userSession }: { userSession: User }) {
   const handleCreatePost = async () => {
     setLoading(true);
     try {
-      if (!content && !mediaFile)
+      if (!content && !mediaPreview)
         return toast.error("You cannot create an empty post", {
           className: "toast-font",
         });
@@ -39,21 +53,31 @@ function PostComposer({ userSession }: { userSession: User }) {
       }
       if (media && "error" in media)
         return toast.error(media.error, { className: "toast-font" });
-      const result = await CreatePostAction({
-        content,
-        userId: userSession.id,
-        media: media?.media,
-        mediaType: media?.mediaType,
-      });
+      const result = postEdit
+        ? await EditPostAction({
+            postId: postEdit ? postEdit.id : "",
+            content,
+            media: media?.media || mediaPreview,
+            mediaType: media?.mediaType,
+          })
+        : await CreatePostAction({
+            content,
+            userId: userSession.id,
+            media: media?.media,
+            mediaType: media?.mediaType,
+          });
       if (!result.success)
         return toast.error(result.message, { className: "toast-font" });
-      setContent("");
-      setMediaPreview("");
+      if (!postEdit) {
+        setContent("");
+        setMediaPreview("");
+      }
       setMediaFile(null);
       toast.success(result.message, { className: "toast-font" });
+      router.refresh();
     } catch (error) {
       console.log(error);
-      return toast.error("Story creation failed. Please try again");
+      return toast.error("Story creation/edit failed. Please try again");
     } finally {
       setLoading(false);
     }
@@ -62,16 +86,22 @@ function PostComposer({ userSession }: { userSession: User }) {
     <>
       <div>
         <textarea
+          dir="auto"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={3}
           placeholder="what's happeing?"
-          className="w-full resize-none outline-none p-2"
+          className="w-full resize-none outline-none p-2 sm:h-30 h-40"
         />
         {mediaPreview && (
           <div className="relative">
-            {isVideo ? (
-              <ReactPlayer controls width="100%" height="100%" src={mediaPreview} />
+            {isVideo && isVideo === "video" ? (
+              <ReactPlayer
+                controls
+                width="100%"
+                height="100%"
+                src={mediaPreview}
+              />
             ) : (
               <Image
                 src={mediaPreview}
@@ -96,9 +126,9 @@ function PostComposer({ userSession }: { userSession: User }) {
       <div className="flex items-center justify-between border-t border-t-gray-200 pt-3">
         <label
           htmlFor="media"
-          className="text-2xl cursor-pointer text-slate-500 hover:text-black transition-css block"
+          className="sm:text-2xl text-xl cursor-pointer text-slate-500 hover:text-black transition-css block"
         >
-          <FiImage />
+          <FiPaperclip />
         </label>
 
         <input
@@ -113,12 +143,12 @@ function PostComposer({ userSession }: { userSession: User }) {
         <button
           onClick={handleCreatePost}
           disabled={loading}
-          className="cursor-pointer disabled:bg-gray-200 text-white not-disabled:bg-linear-to-r from-indigo-500 to-purple-500 rounded-md py-1.5 px-6 hover:scale-105 transition-css"
+          className="cursor-pointer sm:text-[15px] text-sm disabled:bg-gray-200 text-white not-disabled:bg-linear-to-r from-indigo-500 to-purple-500 rounded-md py-1.5 px-6 hover:scale-105 transition-css"
         >
           {loading ? (
-            <span className="size-5 border-3 rounded-full animate-spin border-t-transparent block " />
+            <span className="size-5 border-3 rounded-full animate-spin border-t-transparent block border-indigo-400" />
           ) : (
-            " Publish Post"
+            "Publish Post"
           )}
         </button>
       </div>

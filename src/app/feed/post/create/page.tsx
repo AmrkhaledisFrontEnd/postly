@@ -1,8 +1,8 @@
 import PageHeader from "@/components/PageHeader/PageHeader";
 import { GetSession } from "@/lib/GetSession";
 import { redirect } from "next/navigation";
-import UserDetails from "./_components/UserDetails";
-import PostComposer from "./_components/PostComposer";
+import UserDetails from "../_components/UserDetails";
+import PostComposer from "../_components/PostComposer";
 // ===================================================================================================
 async function CreatePost() {
   const userSession = await GetSession();
@@ -13,7 +13,7 @@ async function CreatePost() {
         title="Create Post"
         subtitle="Share your thoughts and opinions with everyone"
       />
-      <div className="bg-white p-6 shadow rounded-md w-125 space-y-5">
+      <div className="bg-white sm:p-6 p-3 shadow rounded-md sm:w-125 w-full space-y-5">
         <UserDetails userSession={userSession} />
         <PostComposer userSession={userSession} />
       </div>
