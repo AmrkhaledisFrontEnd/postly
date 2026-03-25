@@ -22,11 +22,16 @@ async function EditPost({ params }: { params: Promise<{ postId: string }> }) {
           user: true,
         },
       },
+      savePosts: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
   if (!postEdit) redirect("/feed");
   return (
-    <main className="min-h-screen flex-1 p-5 space-y-10">
+    <main className="min-h-screen flex-1  sm:p-5 p-3 space-y-10">
       <PageHeader title="Edit Post" />
       <div className="bg-white sm:p-6 p-3 shadow rounded-md sm:w-125 w-full space-y-5">
         <UserDetails userSession={userSession} />

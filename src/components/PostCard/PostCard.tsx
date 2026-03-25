@@ -34,7 +34,7 @@ function PostCard({
     };
   }, []);
   return (
-    <li className="bg-white shadow rounded-xl p-5 space-y-3 list-none relative">
+    <li className="bg-white h-fit shadow rounded-xl p-5 space-y-3 list-none relative">
       <p className="absolute uppercase text-shadow-2xs font-semibold flex items-center gap-1 right-4 top-2 text-slate-500 sm:text-xs text-[10px]">
         <span className="text-white sm:text-sm text-xs sm:size-5 size-4 flex items-center justify-center rounded-full shadow bg-indigo-500">
           {post.comments.length}

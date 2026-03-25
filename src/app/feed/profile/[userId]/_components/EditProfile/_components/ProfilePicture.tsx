@@ -25,7 +25,7 @@ function ProfilePicture({
     <div className="space-y-1">
       <h2 className="font-semibold">Profile Picture</h2>
       {profilePicturePreview ? (
-        <div className="size-30 rounded-full relative">
+        <div className="sm:size-30 size-25 rounded-full relative">
           <Image
             src={profilePicturePreview}
             alt="profile picture"
@@ -34,7 +34,7 @@ function ProfilePicture({
           />
           <label
             htmlFor="profile_picture"
-            className="cursor-pointer absolute top-0 right-0 bg-white hover:bg-indigo-500 transition-css hover:text-white p-2 h-fit rounded-full"
+            className="cursor-pointer absolute top-0 right-0 bg-white hover:bg-indigo-500 transition-css hover:text-white sm:p-2 p-1 h-fit rounded-full"
           >
             <MdEdit />
           </label>

@@ -8,7 +8,7 @@ async function CreatePost() {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
   return (
-    <main className="min-h-screen flex-1 p-5 space-y-10">
+    <main className="min-h-screen flex-1  sm:p-5 p-3 space-y-10">
       <PageHeader
         title="Create Post"
         subtitle="Share your thoughts and opinions with everyone"

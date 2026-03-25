@@ -37,7 +37,7 @@ function DiscoverUsers({
     <>
       <SearchBar searchText={searchText} setSearchText={setSearchText} />
       {users && users.length > 0 && (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 sm:gap-3 gap-2 discoverUsers">
           {users.map(
             (user) =>
               user.id !== userSession.id && (

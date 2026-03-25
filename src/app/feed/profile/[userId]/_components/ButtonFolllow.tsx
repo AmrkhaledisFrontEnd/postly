@@ -42,7 +42,7 @@ function ButtonFolllow({
     <button
       onClick={handleCreatePending}
       disabled={loading}
-      className="text-white disabled:from-gray-300 disabled:cursor-default disabled:scale-100 disabled:to-gray-300 disabled:text-gray-500 w-fit flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2 px-10 rounded-md cursor-pointer"
+      className="text-white disabled:from-gray-300 disabled:cursor-default disabled:scale-100 disabled:to-gray-300 disabled:text-gray-500 flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2  w-40 rounded-md cursor-pointer lg:text-[15px] text-sm"
     >
       {isExistingFollow ? (
         "Unfollow"
@@ -50,7 +50,7 @@ function ButtonFolllow({
         "Requested"
       ) : (
         <>
-          <FiUserPlus /> Follow
+          <FiUserPlus className="lg:size-5 size-4" /> Follow
         </>
       )}
     </button>

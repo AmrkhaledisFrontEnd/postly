@@ -22,14 +22,14 @@ function EditProfile({ userSession }: { userSession: User }) {
     <>
       <button
         onClick={() => setIsEditProfile(true)}
-        className="flex items-center border absolute top-3 right-3 border-gray-100 rounded-md py-2 px-4 font-semibold text-slate-500 hover:shadow transition-css cursor-pointer gap-1.5"
+        className="flex items-center border absolute top-3 right-3 border-gray-100 rounded-md py-2 px-4 font-semibold text-slate-500 hover:shadow transition-css cursor-pointer gap-1.5 lg:text-[15px] sm:text-sm text-xs"
       >
-        <FaRegEdit size={20} /> Edit
+        <FaRegEdit  className="sm:size-5 size-4" /> Edit
       </button>
       {isEditProfile && (
-        <div className="inset-0 fixed bg-black/25 backdrop-blur z-50">
-          <div className="bg-white w-2xl relative shadow p-5 mx-auto mt-6 rounded-md space-y-5 overflow-auto max-h-175">
-            <h1 className="font-extrabold text-2xl">Edit Profile</h1>
+        <div className="inset-0 fixed bg-black/25 backdrop-blur z-50 px-5">
+          <div className="bg-white md:w-2xl w-full relative shadow sm:p-5 p-3 mx-auto mt-6 rounded-md space-y-5 overflow-auto md:max-h-175 max-h-160">
+            <h1 className="font-extrabold sm:text-2xl text-xl">Edit Profile</h1>
             <ProfilePicture
               profilePicturePreview={profilePicturePreview}
               setProfilePicturePreview={setProfilePicturePreview}

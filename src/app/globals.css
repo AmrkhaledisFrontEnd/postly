@@ -140,3 +140,10 @@
     @apply font-sans;
   }
 }
+@media(max-width:460px){
+ @layer utilities{
+  .discoverUsers{
+    @apply grid-cols-1
+  }
+ }
+}

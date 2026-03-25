@@ -30,22 +30,22 @@ function UserDetails({
   ];
   return (
     <>
-      <h2 className="text-3xl font-bold capitalize">{user.name}</h2>
+      <h2 className="lg:text-3xl text-2xl font-bold capitalize">{user.name}</h2>
       {user.id !== userSession.id && (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <ButtonFolllow user={user} userSession={userSession} />
           <Link
             href={`/feed/messages/${user.id}`}
-            className="text-white w-fit flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2 px-10 rounded-md cursor-pointer"
+            className="text-white  flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 w-40 py-2 rounded-md cursor-pointer lg:text-[15px] text-sm"
           >
-            <RiSendPlaneFill size={20} /> Message
+            <RiSendPlaneFill className="lg:size-5 size-4" /> Message
           </Link>
         </div>
       )}
       {user.username && (
         <h3 className="text-sm font-normal text-gray-400">@{user.username}</h3>
       )}
-      <p className="font-semibold text-slate-600">{user.bio}</p>
+      <p className="font-semibold text-slate-600 sm:text-[15px] text-sm">{user.bio}</p>
       <div className="flex items-center gap-3 text-gray-400">
         {userInformations.map(
           (info) =>

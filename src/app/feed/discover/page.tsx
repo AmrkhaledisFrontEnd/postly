@@ -9,7 +9,7 @@ const userSession = await GetSession()
 if(!userSession) return redirect("/login")
   const defaultUsers = await getUsers()
   return (
-    <main className="min-h-screen bg-indigo-50 p-5 space-y-10 flex-1">
+    <main className="min-h-screen bg-indigo-50 sm:p-5 p-3 space-y-10 flex-1">
       <PageHeader
         title="Discover People"
         subtitle="Connect with amazing people and grow your network"

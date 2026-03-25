@@ -8,7 +8,7 @@ async function Connections() {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
   return (
-    <main className="min-h-screen p-5 space-y-10 flex-1">
+    <main className="min-h-screen sm:p-5 p-3 space-y-10 flex-1">
       <PageHeader
         title="Connections"
         subtitle="Manage your network and discover new connections"

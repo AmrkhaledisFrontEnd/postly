@@ -34,7 +34,7 @@ function StoryContentTypeSelector({
       </button>
       <label
         htmlFor="select_media"
-        className="flex-1 flex  hover:scale-102 transition-css items-center gap-3 justify-center sm:text-[17px] cursor-pointer font-semibold bg-black/20 py-2  rounded"
+        className="flex-1 flex hover:scale-102 transition-css items-center sm:gap-3 gap-2 justify-center sm:text-[17px] text-sm cursor-pointer font-semibold bg-black/20 py-2  rounded"
       >
         <MdUpload size={23} />
         Photo/Video

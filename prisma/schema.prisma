@@ -8,28 +8,29 @@ datasource db {
 
 // =====================================================================
 model User {
-  id               String    @id @default(cuid())
-  email            String    @unique
+  id               String     @id @default(cuid())
+  email            String     @unique
   name             String?
   password         String?
   image            String?
   cover            String?
   location         String?
   bio              String?
-  username         String?   @unique
-  emailVerified    DateTime? @map("email_verified")
+  username         String?    @unique
+  emailVerified    DateTime?  @map("email_verified")
   accounts         Account[]
   stories          Story[]
   posts            Post[]
-  sentMessages     Message[] @relation("SentMessages")
-  receivedMessages Message[] @relation("ReceivedMessages")
+  sentMessages     Message[]  @relation("SentMessages")
+  receivedMessages Message[]  @relation("ReceivedMessages")
   loves            Love[]
   comments         Comment[]
-  createdAt        DateTime  @default(now())
-  sentRequests     Pending[] @relation("sender")
-  receiverRequests Pending[] @relation("receiver")
-  followers        Follow[]  @relation("followings")
-  followings       Follow[]  @relation("followers")
+  createdAt        DateTime   @default(now())
+  sentRequests     Pending[]  @relation("sender")
+  receiverRequests Pending[]  @relation("receiver")
+  followers        Follow[]   @relation("followings")
+  followings       Follow[]   @relation("followers")
+  savePosts        SavePost[]
 
   @@index([name])
   @@index([location])
@@ -59,15 +60,16 @@ model Story {
 }
 
 model Post {
-  id        String    @id @default(cuid())
+  id        String     @id @default(cuid())
   content   String?
   media     String?
   mediaType String?
   userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime  @default(now())
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
   loves     Love[]
   comments  Comment[]
+  savePosts SavePost[]
 }
 
 model Love {
@@ -99,6 +101,16 @@ model Pending {
   createdAt          DateTime @default(now())
 
   @@unique([sentRequestsId, receivedRequestsId])
+}
+
+model SavePost {
+  id     String @id @default(cuid())
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
 }
 
 model Message {

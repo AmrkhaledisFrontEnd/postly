@@ -12,20 +12,20 @@ function DiscoverUserCard({
   userSession: User;
 }) {
   return (
-    <div className="p-5 border border-gray-200 bg-white rounded-md flex flex-col items-center gap-1 hover:shadow-2xl transition-css">
+    <div className="sm:p-5 p-2 border border-gray-200 bg-white rounded-md flex flex-col items-center gap-1 hover:shadow-2xl transition-css">
       <div className="w-full p-3 bg-indigo-500 flex mb-3 items-center justify-center rounded-md">
         <Image
           src={user.image ? user.image : "/user.jpg"}
           alt="user image"
           width={100}
           height={100}
-          className="size-15 rounded-full object-cover bg-white shadow p-0.5"
+          className="sm:size-15 size-12 rounded-full object-cover bg-white shadow p-0.5"
         />
       </div>
      <div className="flex items-center gap-1">
        <Link
         href={`/feed/profile/${user.id}`}
-        className="font-semibold text-[17px] hover:underline hover:text-indigo-500 capitalize"
+        className="font-semibold sm:text-[17px] hover:underline hover:text-indigo-500 capitalize"
       >
         {user.name}
       </Link>
@@ -48,7 +48,7 @@ function DiscoverUserCard({
         </h3>
       </div>
       <Link
-        className="text-white flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2 w-full rounded-md cursor-pointer mt-3"
+        className="text-white flex items-center tracking-[0.3px] gap-2 hover:scale-102 transition-css active:scale-95 justify-center bg-linear-to-r from-indigo-500 to-purple-500 py-2 w-full rounded-md cursor-pointer mt-3 sm:text-[15px] text-sm"
         href={`/feed/profile/${user.id}`}
       >
         View Profile

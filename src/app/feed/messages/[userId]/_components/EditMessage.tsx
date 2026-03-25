@@ -37,7 +37,6 @@ function EditMessage({
         return toast.error(result.message || "Message failed to send", {
           className: "toast-font",
         });
-      setNewContent("");
       router.refresh();
     } catch (error) {
       console.log(error);
@@ -54,7 +53,7 @@ function EditMessage({
       >
         <IoIosCloseCircle />
       </button>
-      <p className="w-fit max-w-1/2 p-2 bg-indigo-500 text-white rounded-md font-semibold h-fit text-xl">
+      <p dir="auto" className="w-fit max-w-1/2 p-2 bg-indigo-500 text-white rounded-md font-semibold h-fit text-xl">
         {message.content}
       </p>
       <div className="flex absolute bottom-3 left-1/2 -translate-x-1/2 items-center gap-3 h-12 focus-within:ring-indigo-300 ring ring-transparent transition-css rounded-full overflow-hidden bg-white w-150 shadow">

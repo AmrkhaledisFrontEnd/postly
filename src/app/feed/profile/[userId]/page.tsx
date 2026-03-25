@@ -32,6 +32,11 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
               user: true,
             },
           },
+          savePosts: {
+            include: {
+              user: true,
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",
@@ -47,12 +52,22 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
           following: true,
         },
       },
+      savePosts: {
+        include: {
+          post: {
+            include: {
+              user: true,
+            },
+          },
+          user: true,
+        },
+      },
     },
   });
   if (!user) return redirect("/login");
   return (
-    <main className="flex-1 flex justify-center py-5">
-      <div className="w-3xl h-fit space-y-5">
+    <main className="flex-1 flex justify-center py-5 xl:px-0 px-2">
+      <div className="xl:w-3xl w-full h-fit space-y-5">
         <div className="shadow overflow-hidden rounded-lg h-fit">
           <Cover user={user} />
           <div className="flex gap-3 bg-white">
@@ -61,9 +76,9 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
               alt="profile image"
               width={150}
               height={150}
-              className="rounded-full shrink-0 size-30 ml-5 ring-3 ring-white -mt-13 shadow-2xl object-cover bg-white"
+              className="rounded-full shrink-0 lg:size-30 sm:size-25 size-20 sm:ml-5 ml-2 ring-3 ring-white sm:-mt-13 -mt-11 shadow-2xl object-cover bg-white"
             />
-            <div className="w-full pr-5 pt-2 pb-4 relative space-y-2">
+            <div className="w-full sm:pr-5 pr-3 pt-2 sm:pb-4 pb-3 relative space-y-2">
               <UserDetails user={user} userSession={userSession} />
               <UserStats user={user} />
               {userSession.id === user.id && <EditProfile userSession={user} />}

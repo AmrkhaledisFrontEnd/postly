@@ -119,16 +119,16 @@ function FormEditProfile({
         placeholder="Enter your location"
       />
       <div className="space-x-4 mt-10 flex items-center">
-        <button className="text-white w-37.5 h-10 bg-linear-to-r from-indigo-500 to-purple-500 cursor-pointer hover:scale-105 active:scale-95 flex items-center justify-center transition-css py-2 px-4 rounded-md">
+        <button className="text-white w-37.5 sm:text-[15px] text-sm h-10 bg-linear-to-r from-indigo-500 to-purple-500 cursor-pointer hover:scale-105 active:scale-95 flex items-center justify-center transition-css sm:py-2 py-1.5 sm:px-4 px-3 rounded-md">
           {loading ? (
-            <span className=" size-6 block border-2 rounded-full border-t-transparent animate-spin border-white" />
+            <span className="size-6 block border-2 rounded-full border-t-transparent animate-spin border-white" />
           ) : (
             "Save Changes"
           )}
         </button>
         <button
           onClick={() => setIsEditProfile(false)}
-          className="text-gray-500 border border-gray-300 active:scale-95 transition-css hover:scale-105 rounded-md cursor-pointer py-2 px-6"
+          className="text-gray-500 border sm:text-[15px] text-sm border-gray-300 active:scale-95 transition-css hover:scale-105 rounded-md cursor-pointer py-2  px-6"
         >
           Cancel
         </button>

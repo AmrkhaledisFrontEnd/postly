@@ -25,7 +25,7 @@ function Stories({
     <Swiper
       slidesPerView={"auto"}
       spaceBetween={8}
-      className="flex-1"
+      className="flex-1 w-full"
     >
       <SwiperSlide className="sm:max-w-36! max-w-25!">
         <div
@@ -74,7 +74,7 @@ function Stories({
                 {story.text}
               </p>
             )}
-            <p className="absolute bottom-1 right-1 text-white text-xs">
+            <p className="absolute bottom-1 right-1 text-white sm:text-xs text-[11px]">
               {dayjs(story.createdAt).fromNow()}
             </p>
             <span className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-css" />

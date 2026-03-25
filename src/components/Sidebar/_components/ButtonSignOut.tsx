@@ -22,7 +22,7 @@ function ButtonSignOut() {
     <button
       disabled={loading}
       onClick={handleSignOut}
-      className="text-red-400 disabled:cursor-default text-xl cursor-pointer hover:text-red-500 transition-css"
+      className="text-red-400 disabled:cursor-default active:scale-90 text-xl cursor-pointer hover:text-red-500 transition-css"
     >
       {loading ? (
         <div className="size-5 rounded-full border-3 border-red-400 border-t-transparent animate-spin" />

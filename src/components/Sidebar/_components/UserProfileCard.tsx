@@ -11,13 +11,13 @@ function UserProfileCard({ userSession }: { userSession: User }) {
           alt="your image"
           width={100}
           height={100}
-          className="size-11 rounded-full object-cover"
+          className="sm:size-11 size-9 rounded-full object-cover shrink-0"
         />
         <div>
-          <h2 className="font-semibold text-[17px] text-slate-800 line-clamp-1 capitalize">
+          <h2 className="font-semibold sm:text-[17px] text-slate-800 line-clamp-1 capitalize">
             {userSession.name}
           </h2>
-          <h3 className="text-gray-500 text-sm font-normal line-clamp-1">
+          <h3 className="text-gray-500 sm:text-sm text-xs font-normal line-clamp-1">
             {userSession.email}
           </h3>
         </div>

@@ -7,6 +7,11 @@ export const getPosts = Cache(
       include: {
         user: true,
         loves: true,
+        savePosts: {
+          include: {
+            user: true,
+          },
+        },
         comments: {
           include: {
             user: true,

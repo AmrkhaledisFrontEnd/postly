@@ -26,21 +26,21 @@ function ConnectionsTabs({
   const users: UserWithRelations[] | [] = usersMap[currentTap] || [];
   return (
     <>
-      <div className="bg-white py-3 px-6 rounded-md shadow w-fit flex items-center gap-10">
+      <div className="bg-white py-3 px-6 rounded-md shadow w-fit flex items-center sm:gap-10 gap-5 sm:mx-0 mx-auto">
         {taps.map((tap) => (
           <button
             onClick={() => setCurrentTap(tap.value)}
             key={tap.value}
-            className={`flex items-center gap-2 hover:text-slate-900 transition-css font-bold text-sm
+            className={`flex items-center gap-2 hover:text-slate-900 transition-css font-bold sm:text-sm text-xs
                  ${currentTap === tap.value ? "text-slate-900 cursor-default" : "cursor-pointer text-slate-500"} 
                 `}
           >
-            <HiUsers size={20} />
+            <HiUsers className="sm:size-5 size-4" />
             {tap.label}
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-3 gap-3 w-full">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-3 w-full">
         {users.map(
           (user: UserWithRelations) =>
             user.id !== userSession.id && (

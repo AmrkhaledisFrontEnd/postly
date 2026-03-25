@@ -19,13 +19,13 @@ function FormFieldEditProfile({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id} className="sm:text-[15px] text-sm">{label}</label>
       <input
         value={value}
         onChange={(e) => setState(e.target.value)}
         type={type}
         id={id}
-        className="border border-gray-300 py-2 px-3 font-medium rounded-md outline-none focus:border-indigo-500 transition-css"
+        className="border border-gray-300 sm:text-[15px] text-xs py-2 px-3 font-medium rounded-md outline-none focus:border-indigo-500 transition-css"
         placeholder={placeholder}
       />
     </div>

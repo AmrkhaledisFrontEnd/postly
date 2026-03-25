@@ -24,16 +24,16 @@ function CoverEdit({
     <div className="space-y-1">
       <h2 className="font-semibold">Cover Photo</h2>
       {coverPreview ? (
-        <div className="relative group w-100 h-50 rounded-md">
+        <div className="relative group sm:w-100 w-full h-50 rounded-md">
           <Image
             fill
             src={coverPreview}
             alt="cover"
-            className="object-cover "
+            className="object-cover rounded-md"
           />
           <label
             htmlFor="cover"
-            className="absolute -top-2 -right-2 active:scale-95 hover:scale-105 cursor-pointer bg-indigo-500 text-white transition-css text-xl  p-2 rounded-full"
+            className="absolute sm:-top-2 -top-1 sm:-right-2 -right-1 active:scale-95 hover:scale-105 cursor-pointer bg-indigo-500 text-white transition-css sm:text-xl p-2 text-sm rounded-full"
           >
             <IoMdPhotos />
           </label>

@@ -46,7 +46,7 @@ function CreateComment({
         height={50}
         className="rounded-full object-cover sm:size-10 size-8 shrink-0"
       />
-      <div className="flex items-center gap-1 border-b border-b-gray-500 w-full  focus-within:border-b-indigo-500">
+      <div className="flex items-center border-b border-b-gray-500 w-full focus-within:border-b-indigo-500">
         <input
         dir="auto"
           onKeyDown={(e) => {
@@ -57,7 +57,7 @@ function CreateComment({
           disabled={loading}
           ref={inputRef}
           type="text"
-          className=" outline-none py-1 flex-1 sm:text-[15px] text-sm"
+          className="outline-none py-1 flex-1 w-full sm:text-[15px] text-sm"
           placeholder="Add Comment..."
         />
         <button

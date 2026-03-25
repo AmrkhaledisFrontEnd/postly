@@ -23,6 +23,11 @@ export type PostDbCacheType = Prisma.PostGetPayload<{
         user: true;
       };
     };
+    savePosts: {
+      include: {
+        user: true;
+      };
+    };
   };
 }>;
 export type UserWithRelations = Prisma.UserGetPayload<{
@@ -40,6 +45,16 @@ export type UserWithRelations = Prisma.UserGetPayload<{
     followings: {
       include: {
         following: true;
+      };
+    };
+    savePosts: {
+      include: {
+        post: {
+          include: {
+            user: true;
+          };
+        };
+        user: true;
       };
     };
   };

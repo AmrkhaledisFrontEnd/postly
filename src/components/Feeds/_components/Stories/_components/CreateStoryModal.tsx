@@ -132,7 +132,7 @@ function CreateStoryModal({
           className="w-full disabled:from-gray-200 disabled:to-gray-200 disabled:cursor-default disabled:scale-100 flex items-center hover:scale-102 transition-css gap-3 bg-linear-to-r from-indigo-500 to-purple-500 text-white py-3 justify-center rounded cursor-pointer font-bold"
         >
           {loading ? (
-            <span className="size-6 border-2 rounded-full animate-spin border-t-transparent " />
+            <span className="size-6 border-3 rounded-full animate-spin border-t-transparent border-indigo-400" />
           ) : (
             <>
               <PiStarFourBold size={18} /> Create Story

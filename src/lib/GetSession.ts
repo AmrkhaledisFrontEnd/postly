@@ -22,12 +22,46 @@ export const GetSession = async () => {
       },
       followers: {
         include: {
-          follower: true,
+          follower: {
+            include: {
+              stories: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
         },
       },
       followings: {
         include: {
-          following: true,
+          following: {
+            include: {
+              stories: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      savePosts: {
+        include: {
+          post: {
+            include: {
+              user: true,
+            },
+          },
+          user: true,
+        },
+      },
+      stories: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       },
     },
