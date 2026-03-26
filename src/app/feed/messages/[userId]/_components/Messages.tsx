@@ -18,8 +18,6 @@ function Messages({
 }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [dropDown, setDropDown] = useState("");
-
-  // معرف الغرفة الفريد بين المستخدمين
   const room = [userSessionId, receiverId].sort().join("_");
 
   useEffect(() => {
@@ -62,7 +60,7 @@ function Messages({
 
   return (
     <>
-      <div className="h-152 overflow-y-auto overflow-x-hidden space-y-2">
+      <div className="lg:h-152 h-130 overflow-y-auto overflow-x-hidden space-y-2 no-scrollbar">
         {messages.length > 0 &&
           messages.map((message) => (
             <MessageDesign

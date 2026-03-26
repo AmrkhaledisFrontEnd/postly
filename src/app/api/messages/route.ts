@@ -1,14 +1,5 @@
-// app/api/messages/route.ts
-import Pusher from "pusher";
 import { prisma } from "@/lib/prisma";
-
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID!,
-  key: process.env.PUSHER_KEY!,
-  secret: process.env.PUSHER_SECRET!,
-  cluster: process.env.PUSHER_CLUSTER!,
-  useTLS: true,
-});
+import { pusherServer } from "@/lib/pusher"; // استيراد النسخة الجاهزة
 
 export async function POST(req: Request) {
   const { content, senderId, receiverId } = await req.json();
@@ -19,8 +10,8 @@ export async function POST(req: Request) {
     data: { content, senderId, receiverId },
   });
 
-  // 2. إرسال "تنبيه" لريل تايم عبر Pusher
-  await pusher.trigger(room, "new-message", newMessage);
+  // 2. استخدام النسخة الموحدة لإرسال التنبيه
+  await pusherServer.trigger(room, "new-message", newMessage);
 
   return Response.json(newMessage);
 }

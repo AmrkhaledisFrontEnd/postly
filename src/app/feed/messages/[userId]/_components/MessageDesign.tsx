@@ -30,7 +30,7 @@ function MessageDesign({
           onClick={() =>
             setDropDown((prev) => (prev === message.id ? "" : message.id))
           }
-          className={`p-2 messageContent ${message.senderId === userSessionId && "cursor-pointer"} ${message.senderId === userSessionId ? "bg-indigo-500 rounded-br-none text-white" : "bg-white rounded-bl-none"} shadow max-w-1/2 rounded-md font-semibold w-fit`}
+          className={`p-2 messageContent ${message.senderId === userSessionId && "cursor-pointer"} ${message.senderId === userSessionId ? "bg-indigo-500 rounded-br-none text-white" : "bg-white rounded-bl-none"} shadow lg:max-w-1/2 max-w-[70%] rounded-md font-semibold w-fit`}
         >
           {message.content}
         </p>
