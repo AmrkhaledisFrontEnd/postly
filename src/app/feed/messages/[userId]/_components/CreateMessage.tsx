@@ -1,10 +1,10 @@
 "use client";
 import { MessageAction } from "@/lib/Actions/Create/Message.action";
-import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+// تم حذف useRouter لأنه لم يعد ضرورياً للتحديث اللحظي
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { LuSendHorizontal } from "react-icons/lu";
-// =========================================================================
+
 function CreateMessage({
   userSessionId,
   receiverId,
@@ -13,60 +13,71 @@ function CreateMessage({
   receiverId: string;
 }) {
   const [content, setContent] = useState("");
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [content]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // عمل Focus فقط عند فتح الصفحة لأول مرة
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   const handleCreateMessage = async () => {
+    if (!content?.trim()) {
+      return toast.error("You cannot send an empty message", {
+        className: "toast-font",
+      });
+    }
+
     try {
       setLoading(true);
-      if (!content?.trim())
-        return toast.error("You cannot send an empty message", {
-          className: "toast-font",
-        });
+      
       const result = await MessageAction({
-        content,
+        content: content.trim(),
         senderId: userSessionId,
         receiverId,
         type: "create",
       });
-      if (!result.success)
+
+      if (!result.success) {
         return toast.error(result.message || "Message failed to send", {
           className: "toast-font",
         });
+      }
+
+      // مسح الحقل وإعادة التركيز عليه
       setContent("");
-      router.refresh();
+      inputRef.current?.focus();
+      
+      // ملاحظة: لا نحتاج router.refresh() هنا لأن Pusher سيتكفل بالتحديث
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Message failed to send", { className: "toast-font" });
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <div className="flex items-center gap-3 h-12 focus-within:ring-indigo-500 ring ring-transparent transition-css rounded-full overflow-hidden bg-white max-w-150 mx-auto shadow">
+    <div className="flex items-center gap-3 h-12 focus-within:ring-indigo-500 ring ring-transparent transition-all duration-200 rounded-full overflow-hidden bg-white max-w-150 mx-auto shadow">
       <input
         ref={inputRef}
         onChange={(e) => setContent(e.target.value)}
         value={content}
         dir="auto"
         onKeyDown={(e) => {
-          if (e.key === "Enter") handleCreateMessage();
+          if (e.key === "Enter" && !loading) handleCreateMessage();
         }}
-        className="flex-1 bg-transparent h-full outline-none pl-4 text-gray-600 cursor-pointer"
+        className="flex-1 bg-transparent h-full outline-none pl-4 text-gray-600"
         placeholder="Type a message..."
+        disabled={loading}
       />
 
       <button
         onClick={handleCreateMessage}
-        disabled={loading}
-        className="text-xl disabled:cursor-default disabled:bg-gray-200 siz-5 rounded-full flex items-center justify-center bg-purple-500 cursor-pointer text-white p-1.5 mr-1.5"
+        disabled={loading || !content.trim()}
+        className="text-xl disabled:cursor-not-allowed disabled:bg-gray-300 rounded-full flex items-center justify-center bg-purple-500 cursor-pointer text-white p-1.5 mr-1.5 transition-colors"
       >
-        <LuSendHorizontal />
+        <LuSendHorizontal className={`${loading ? "animate-pulse" : ""}`} />
       </button>
     </div>
   );

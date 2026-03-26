@@ -7,17 +7,10 @@ import { GetSession } from "@/lib/GetSession";
 async function Feeds() {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
-  const followersStories = userSession.followers
-    .map((f) => f.follower.stories)
-    .flat();
   const followingsStories = userSession.followings
     .map((f) => f.following.stories)
     .flat();
-  const stories = [
-    ...userSession.stories,
-    ...followersStories,
-    ...followingsStories,
-  ];
+  const stories = [...userSession.stories, ...followingsStories];
   const posts = await getPosts();
   return (
     <main className="flex-1 py-10 lg:px-0 sm:px-3 px-1 space-y-10">

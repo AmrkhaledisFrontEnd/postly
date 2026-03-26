@@ -3,17 +3,51 @@ import { Message } from "@prisma/client";
 import CreateMessage from "./CreateMessage";
 import MessageDesign from "./MessageDesign";
 import { useEffect, useState } from "react";
-// ======================================================================
-function Messages({
-  messages,
-  userSessionId,
-  receiverId,
-}: {
+import Pusher from "pusher-js"; // استيراد بوشر
+
+interface MessagesProps {
   messages: Message[];
   userSessionId: string;
   receiverId: string;
-}) {
+}
+
+function Messages({
+  messages: initialMessages, // نغير الاسم هنا لنستخدمه كقيمة أولية
+  userSessionId,
+  receiverId,
+}: MessagesProps) {
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [dropDown, setDropDown] = useState("");
+
+  // معرف الغرفة الفريد بين المستخدمين
+  const room = [userSessionId, receiverId].sort().join("_");
+
+  useEffect(() => {
+    // 1. إعداد Pusher (استخدم مفتاحك الخاص من لوحة تحكم Pusher لاحقاً)
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+
+    // 2. الاشتراك في القناة (الغرفة)
+    const channel = pusher.subscribe(room);
+
+    // 3. الاستماع لحدث وصول رسالة جديدة
+    channel.bind("new-message", (newMessage: Message) => {
+      setMessages((prev) => {
+        // تأكد أن الرسالة ليست موجودة بالفعل (لتجنب التكرار)
+        if (prev.find((m) => m.id === newMessage.id)) return prev;
+        return [...prev, newMessage];
+      });
+    });
+
+    // 4. تنظيف الاتصال عند مغادرة الصفحة
+    return () => {
+      pusher.unsubscribe(room);
+      pusher.disconnect();
+    };
+  }, [room]);
+
+  // منطق إغلاق القائمة المنسدلة (الذي كتبته أنت)
   useEffect(() => {
     const handle = (e: MouseEvent) => {
       if (e.target instanceof Element) {
@@ -22,9 +56,10 @@ function Messages({
     };
     document.addEventListener("click", handle);
     return () => {
-      removeEventListener("click", handle);
+      document.removeEventListener("click", handle); // تصحيح بسيط هنا بإضافة document
     };
   }, []);
+
   return (
     <>
       <div className="h-152 overflow-y-auto overflow-x-hidden space-y-2">
