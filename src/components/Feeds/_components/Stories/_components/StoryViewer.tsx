@@ -1,16 +1,17 @@
 "use client";
 import { StoryType } from "@/lib/types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import ReactPlayer from "react-player";
+import DeleteStoryButton from "./DeleteStoryButton";
 // =======================================================================================================
 function StoryViewer({
   viewStory,
   setViewStory,
 }: {
   viewStory: StoryType;
-  setViewStory: any;
+  setViewStory: Dispatch<SetStateAction<StoryType | null>>;
 }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -27,6 +28,7 @@ function StoryViewer({
     }, 100);
     return () => clearInterval(interval);
   }, [viewStory, setViewStory]);
+
   return (
     <div
       style={{
@@ -42,21 +44,21 @@ function StoryViewer({
         />
       </div>
       <div className="absolute top-3 left-0 z-30 flex items-center justify-between w-full px-3">
-        <div className="flex items-center px-6 py-1.5 gap-3 bg-black/45 text-white rounded ">
+        <div className="flex items-center sm:px-6 px-3 py-1.5 gap-3 bg-black/45 text-white rounded ">
           <Image
             src={viewStory.user.image ? viewStory.user.image : "/user.jpg"}
             alt="user image"
             width={50}
             height={50}
-            className="size-10 rounded-full object-cover ring ring-white"
+            className="sm:size-10 size-8 rounded-full object-cover ring ring-white"
           />
-          <h2 className="font-semibold capitalize hover:underline cursor-pointer">
+          <h2 className="font-semibold capitalize hover:underline cursor-pointer sm:text-[15px] text-sm">
             {viewStory.user.name}
           </h2>
         </div>
         <button
           onClick={() => setViewStory(null)}
-          className="md:text-2xl text-xl text-white cursor-pointer p-3 rounded-full bg-white/25 hover:bg-white/30 shadow  z-30"
+          className="md:text-2xl sm:text-xl text-white cursor-pointer sm:p-3 p-2 rounded-full bg-white/25 hover:bg-white/30 shadow  z-30"
         >
           <AiOutlineClose />
         </button>
@@ -90,6 +92,7 @@ function StoryViewer({
           <p className="text-white text-2xl">{viewStory.text}</p>
         </div>
       )}
+      <DeleteStoryButton storyId={viewStory.id} setViewStory={setViewStory} />
     </div>
   );
 }

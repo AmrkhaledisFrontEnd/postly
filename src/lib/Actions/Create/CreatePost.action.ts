@@ -1,6 +1,5 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { pusherServer } from "@/lib/pusherServer";
 import { revalidatePath } from "next/cache";
 // ===================================================================
 type DataType = {
@@ -33,7 +32,7 @@ export const CreatePostAction = async (
     });
     if (!user)
       return { success: false, message: "An unexpected error occurred" };
-    const newPost = await prisma.post.create({
+  await prisma.post.create({
       data: {
         userId: user.id,
         content: content || null,
@@ -55,10 +54,7 @@ export const CreatePostAction = async (
         },
       },
     });
-    await pusherServer.trigger("posts-feed", "new-post", newPost);
     revalidatePath("/feed");
-    revalidatePath("/feed/profile");
-    revalidatePath("/feed/u");
     return { success: true, message: "The post was sent" };
   } catch (error) {
     console.log(error);

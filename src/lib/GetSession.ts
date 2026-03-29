@@ -56,6 +56,13 @@ export const GetSession = async () => {
           user: true,
         },
       },
+      receivedMessages: {
+        include: {
+          sender: true,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 3,
+      },
       stories: {
         include: {
           user: true,

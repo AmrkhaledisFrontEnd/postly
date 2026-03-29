@@ -46,26 +46,28 @@ function CreateMessage({
     }
   };
   return (
-    <div className="flex items-center gap-3 h-12 focus-within:ring-indigo-300 ring ring-transparent transition-all duration-200 rounded-full overflow-hidden bg-white max-w-150 mx-auto shadow focus-within:max-w-170">
-      <input
-        ref={inputRef}
-        onChange={(e) => setContent(e.target.value)}
-        value={content}
-        dir="auto"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !loading) handleCreateMessage();
-        }}
-        className="flex-1 bg-transparent h-full outline-none pl-4 text-gray-600"
-        placeholder="Type a message..."
-        disabled={loading}
-      />
-      <button
-        onClick={handleCreateMessage}
-        disabled={loading || !content.trim()}
-        className="text-xl disabled:cursor-not-allowed disabled:bg-gray-300 rounded-full flex items-center justify-center bg-purple-500 cursor-pointer text-white p-1.5 mr-1.5 transition-colors"
-      >
-        <LuSendHorizontal className={`${loading ? "animate-pulse" : ""}`} />
-      </button>
+    <div className="h-37">
+      <div className="flex items-center gap-3 h-12 focus-within:ring-indigo-300 ring ring-transparent transition-all duration-200 rounded-full overflow-hidden bg-white max-w-150 mx-auto shadow focus-within:max-w-170">
+        <input
+          ref={inputRef}
+          onChange={(e) => setContent(e.target.value)}
+          value={content}
+          dir="auto"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !loading) handleCreateMessage();
+          }}
+          className="flex-1 bg-transparent h-full outline-none pl-4 text-gray-600"
+          placeholder="Type a message..."
+          disabled={loading}
+        />
+        <button
+          onClick={handleCreateMessage}
+          disabled={loading || !content.trim()}
+          className="text-xl disabled:cursor-not-allowed disabled:bg-gray-300 rounded-full flex items-center justify-center bg-purple-500 cursor-pointer text-white p-1.5 mr-1.5 transition-colors"
+        >
+          <LuSendHorizontal className={`${loading ? "animate-pulse" : ""}`} />
+        </button>
+      </div>
     </div>
   );
 }
