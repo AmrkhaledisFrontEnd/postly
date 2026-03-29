@@ -13,7 +13,7 @@ async function layout({ children }: { children: React.ReactNode }) {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
   return (
-    <div className=" bg-indigo-50 min-h-screen">
+    <div className="bg-indigo-50 min-h-screen overflow-x-hidden">
       <div className="max-w-425 flex lg:gap-5 mx-auto">
         <Sidebar userSession={userSession} />
         {children}

@@ -61,7 +61,7 @@ async function page() {
           ))
         ) : (
           <p className="font-normal text-[14px] py-0.5 bg-yellow-50 text-yellow-500 px-2 ring ring-yellow-200 rounded">
-            The people you follow or following will appear here for you to
+            The people you following will appear here for you to
             connect with
           </p>
         )}

@@ -8,6 +8,7 @@ function Head() {
         src={"/logo.png"}
         width={100}
         height={100}
+        priority
         className="sm:w-40 sm:h-8 w-35 h-7"
         alt="logo"
       />
