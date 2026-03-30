@@ -25,7 +25,7 @@ function Stories({
     <Swiper
       slidesPerView={"auto"}
       spaceBetween={8}
-      className="flex-1 w-full"
+      className="w-full!"
     >
       <SwiperSlide className="sm:max-w-36! max-w-25!">
         <div
@@ -70,7 +70,7 @@ function Stories({
                 />
               )
             ) : (
-              <p className="text-white line-clamp-3 text-sm px-3 text-center">
+              <p dir="auto" className="text-white line-clamp-3 text-sm px-3 text-center">
                 {story.text}
               </p>
             )}
@@ -89,7 +89,7 @@ function Stories({
         />
       )}
       {viewStory && (
-        <StoryViewer viewStory={viewStory} setViewStory={setViewStory} />
+        <StoryViewer userSessionId={userId} viewStory={viewStory} setViewStory={setViewStory} />
       )}
     </Swiper>
   );

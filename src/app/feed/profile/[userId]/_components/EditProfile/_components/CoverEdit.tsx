@@ -41,7 +41,7 @@ function CoverEdit({
       ) : (
         <label
           htmlFor="cover"
-          className="w-100 h-50 bg-linear-to-r from-indigo-300 to-pink-300 shadow hover:from-indigo-400 hover:to-pink-400 transition-css flex rounded-md items-center justify-center text-4xl text-white cursor-pointer"
+          className="sm:w-100 w-full h-50 bg-linear-to-r from-indigo-300 to-pink-300 shadow hover:from-indigo-400 hover:to-pink-400 transition-css flex rounded-md items-center justify-center text-4xl text-white cursor-pointer"
         >
           <IoMdPhotos />
         </label>

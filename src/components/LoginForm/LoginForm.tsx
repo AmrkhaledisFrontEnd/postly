@@ -111,7 +111,7 @@ function LoginForm() {
                 error={erros.password}
               />
               <Link
-                href={"/"}
+                href={"/forgot-password"}
                 className="text-[13px] font-medium text-slate-700 hover:underline"
               >
                 Forgot password?

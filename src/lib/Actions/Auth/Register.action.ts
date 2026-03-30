@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { generateVerificationToken } from "@/lib/generateVerificationToken";
 import { sendVerificationToken } from "@/lib/email/sendVerificationToken";
 import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
 // =============================================================================================
 export const RegisterAction = async (
   data: z.infer<typeof RegisterSchema>,
@@ -48,6 +49,7 @@ export const RegisterAction = async (
       verificationToken.token,
     );
     if (!result.success) return { success: false, message: result.message };
+    revalidatePath("/feed/discover")
     return { success: true, message: result.message };
   } catch (error) {
     console.log(error);

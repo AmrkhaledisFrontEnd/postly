@@ -3,7 +3,7 @@ import RightSide from "@/components/RIghtSide/RightSide";
 // ======================================================================
 function Feed() {
   return (
-    <main className="flex-1 flex gap-7">
+    <main className="flex-1 min-w-0 flex gap-7">
       <Feeds />
       <RightSide />
     </main>

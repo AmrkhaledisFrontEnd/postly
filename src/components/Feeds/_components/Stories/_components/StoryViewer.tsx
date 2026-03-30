@@ -9,9 +9,11 @@ import DeleteStoryButton from "./DeleteStoryButton";
 function StoryViewer({
   viewStory,
   setViewStory,
+  userSessionId,
 }: {
   viewStory: StoryType;
   setViewStory: Dispatch<SetStateAction<StoryType | null>>;
+  userSessionId: string;
 }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -92,7 +94,9 @@ function StoryViewer({
           <p className="text-white text-2xl">{viewStory.text}</p>
         </div>
       )}
-      <DeleteStoryButton storyId={viewStory.id} setViewStory={setViewStory} />
+      {viewStory.userId === userSessionId && (
+        <DeleteStoryButton storyId={viewStory.id} setViewStory={setViewStory} />
+      )}
     </div>
   );
 }
