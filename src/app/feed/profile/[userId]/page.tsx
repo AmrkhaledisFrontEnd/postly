@@ -62,6 +62,11 @@ async function Profile({ params }: { params: Promise<{ userId: string }> }) {
           user: true,
         },
       },
+      sentMessages: {
+        include: {
+          receiver: true,
+        },
+      },
     },
   });
   if (!user) return redirect("/login");
