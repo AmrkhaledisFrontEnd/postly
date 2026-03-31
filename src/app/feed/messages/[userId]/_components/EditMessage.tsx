@@ -49,20 +49,20 @@ function EditMessage({
     }
   };
   return (
-    <div className="fixed inset-0 bg-black/20 backdrop-blur flex justify-end p-5">
+    <div className="fixed inset-0 bg-black/20 backdrop-blur flex justify-end p-5 z-50">
       <button
         onClick={() => setEditMessage(false)}
-        className="absolute active:scale-95 transition hover:scale-105 left-3 top-3 cursor-pointer text-4xl text-white rounded-full"
+        className="absolute active:scale-95 transition hover:scale-105 sm:left-3 left-1 sm:top-3 top-1 cursor-pointer sm:text-4xl text-2xl text-white rounded-full"
       >
         <IoIosCloseCircle />
       </button>
       <p
         dir="auto"
-        className="w-fit max-w-1/2 p-2 bg-indigo-500 text-white rounded-md font-semibold h-fit text-xl"
+        className="w-fit max-w-1/2 p-2 bg-indigo-500 text-white rounded-md font-semibold h-fit sm:text-xl text-sm"
       >
         {message.content}
       </p>
-      <div className="flex absolute bottom-3 left-1/2 -translate-x-1/2 items-center gap-3 h-12 focus-within:ring-indigo-300 ring ring-transparent transition-css rounded-full overflow-hidden bg-white w-150 shadow">
+      <div className="flex absolute bottom-3 left-1/2 -translate-x-1/2 items-center gap-3 sm:h-12 h-9 focus-within:ring-indigo-300 ring ring-transparent transition-css rounded-full overflow-hidden bg-white md:w-150 w-[97%] shadow">
         <input
           value={newContent}
           onChange={(e) => setNewContent(e.target.value)}
@@ -78,7 +78,7 @@ function EditMessage({
         <button
           onClick={handleEditMessage}
           disabled={loading}
-          className="text-xl disabled:cursor-default disabled:bg-gray-200 siz-5 rounded-full flex items-center justify-center bg-green-500 cursor-pointer text-white p-1.5 mr-1.5"
+          className="sm:text-xl disabled:cursor-default disabled:bg-gray-200 siz-5 rounded-full flex items-center justify-center bg-green-500 cursor-pointer text-white p-1.5 mr-1.5"
         >
           <FiEdit2 />
         </button>

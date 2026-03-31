@@ -57,5 +57,10 @@ export type UserWithRelations = Prisma.UserGetPayload<{
         user: true;
       };
     };
+    sentMessages: {
+      include: {
+        receiver: true;
+      };
+    };
   };
 }>;

@@ -63,6 +63,11 @@ export const GetSession = async () => {
         orderBy: { createdAt: "desc" },
         take: 3,
       },
+      sentMessages: {
+        include: {
+          receiver: true,
+        },
+      },
       stories: {
         include: {
           user: true,

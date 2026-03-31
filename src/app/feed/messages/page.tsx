@@ -1,5 +1,4 @@
 import PageHeader from "@/components/PageHeader/PageHeader";
-import { getUsers } from "@/lib/DBCache/getUsers";
 import { GetSession } from "@/lib/GetSession";
 import { User } from "@prisma/client";
 import Image from "next/image";
@@ -11,14 +10,31 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 async function page() {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
-  const followings = userSession.followings.map((f) => f.following);
-  const users = [...followings];
+  const followingUsers = userSession.followings.map((f) => f.following);
+  const messageSenders = userSession.receivedMessages.map(
+    (message) => message.sender,
+  );
+  const messageReceivers = userSession.sentMessages.map(
+    (message) => message.receiver,
+  );
+  const relatedUsers = [
+    ...followingUsers,
+    ...messageSenders,
+    ...messageReceivers,
+  ];
+  const uniqueUsersMap = new Map();
+  for (const user of relatedUsers) {
+    if (!uniqueUsersMap.has(user.id)) {
+      uniqueUsersMap.set(user.id, user);
+    }
+  }
+  const uniqueUsers = [...uniqueUsersMap.values()];
   return (
     <main className="flex-1 min-h-screen bg-indigo-50  sm:p-5 p-3 space-y-10">
       <PageHeader title="Messages" subtitle="Talk to your friends and family" />
       <ul className="grid lg:grid-cols-2 gap-2">
-        {users.length > 0 ? (
-          users.map((user: User) => (
+        {uniqueUsers.length > 0 &&
+          uniqueUsers.map((user: User) => (
             <li
               key={user.id}
               className="shadow bg-white sm:p-5 p-3 rounded-md flex items-center justify-between gap-5"
@@ -58,13 +74,7 @@ async function page() {
                 </Link>
               </div>
             </li>
-          ))
-        ) : (
-          <p className="font-normal text-[14px] py-0.5 bg-yellow-50 text-yellow-500 px-2 ring ring-yellow-200 rounded">
-            The people you following will appear here for you to
-            connect with
-          </p>
-        )}
+          ))}
       </ul>
     </main>
   );

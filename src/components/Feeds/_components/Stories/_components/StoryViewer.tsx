@@ -2,9 +2,11 @@
 import { StoryType } from "@/lib/types";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import ReactPlayer from "react-player";
 import DeleteStoryButton from "./DeleteStoryButton";
+
 // =======================================================================================================
 function StoryViewer({
   viewStory,
@@ -16,7 +18,11 @@ function StoryViewer({
   userSessionId: string;
 }) {
   const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+
     setProgress(0);
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -31,13 +37,13 @@ function StoryViewer({
     return () => clearInterval(interval);
   }, [viewStory, setViewStory]);
 
-  return (
+  const modalContent = (
     <div
       style={{
         backgroundColor:
           viewStory.storyBg && !viewStory.media ? viewStory.storyBg : "#000000",
       }}
-      className="fixed inset-0 z-50"
+      className="fixed inset-0 z-90 flex flex-col items-center justify-center"
     >
       <div className="absolute top-0 left-0 w-full h-1 bg-white/30 z-30">
         <div
@@ -45,7 +51,7 @@ function StoryViewer({
           style={{ width: `${progress}%` }}
         />
       </div>
-      <div className="absolute top-3 left-0 z-30 flex items-center justify-between w-full px-3">
+      <div className="absolute top-3 left-0 z-40 flex items-center justify-between w-full px-3">
         <div className="flex items-center sm:px-6 px-3 py-1.5 gap-3 bg-black/45 text-white rounded ">
           <Image
             src={viewStory.user.image ? viewStory.user.image : "/user.jpg"}
@@ -60,45 +66,55 @@ function StoryViewer({
         </div>
         <button
           onClick={() => setViewStory(null)}
-          className="md:text-2xl sm:text-xl text-white cursor-pointer sm:p-3 p-2 rounded-full bg-white/25 hover:bg-white/30 shadow  z-30"
+          className="md:text-2xl sm:text-xl text-white cursor-pointer sm:p-3 p-2 rounded-full bg-white/25 hover:bg-white/30 shadow z-50"
         >
           <AiOutlineClose />
         </button>
       </div>
-      {viewStory.media ? (
-        viewStory.mediaType === "image" ? (
-          <div className="relative w-full h-screen flex items-center justify-center">
-            <Image
-              src={viewStory.media}
-              alt="story image"
-              width={900}
-              height={900}
-              className="object-cover rounded-md"
-            />
-          </div>
-        ) : (
-          <div className="h-screen flex items-center justify-center px-1">
-            <div className="sm:min-w-105 mx-auto sm:h-screen">
-              <ReactPlayer
+      <div className="w-full h-full flex items-center justify-center">
+        {viewStory.media ? (
+          viewStory.mediaType === "image" ? (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
                 src={viewStory.media}
-                width="100%"
-                height="100%"
-                controls
-                className="object-cover"
+                alt="story image"
+                width={900}
+                height={900}
+                className="max-h-screen w-auto object-contain rounded-md"
               />
             </div>
+          ) : (
+            <div className="h-screen w-full flex items-center justify-center px-1">
+              <div className="sm:max-w-md w-full h-full">
+                <ReactPlayer
+                  src={viewStory.media}
+                  width="100%"
+                  height="100%"
+                  playing
+                  controls
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          )
+        ) : (
+          <div className="h-screen w-full flex items-center justify-center px-5">
+            <p className="text-white text-2xl font-medium text-center">
+              {viewStory.text}
+            </p>
           </div>
-        )
-      ) : (
-        <div className="h-screen w-full flex items-center justify-center px-5">
-          <p className="text-white text-2xl">{viewStory.text}</p>
-        </div>
-      )}
+        )}
+      </div>
+
       {viewStory.userId === userSessionId && (
         <DeleteStoryButton storyId={viewStory.id} setViewStory={setViewStory} />
       )}
     </div>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(modalContent, document.body);
 }
 
 export default StoryViewer;
