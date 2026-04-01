@@ -37,6 +37,9 @@ async function Chat({ params }: { params: Promise<{ userId: string }> }) {
         { senderId: userId, receiverId: userSession.id },
       ],
     },
+    include: {
+      sender: true,
+    },
     orderBy: {
       createdAt: "asc",
     },

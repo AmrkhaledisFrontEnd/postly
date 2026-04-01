@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusherServer";
+import { includes } from "zod";
 // =================================================================
 type Data = {
   type: string;
@@ -27,6 +28,9 @@ export const MessageAction = async (
       if (users < 2) return { success: false, message: "User not found" };
       const newMessage = await prisma.message.create({
         data: { content, senderId, receiverId },
+        include: {
+          sender: true,
+        },
       });
       await pusherServer.trigger(room, "new-message", newMessage);
     } else if (type === "edit") {
@@ -34,6 +38,9 @@ export const MessageAction = async (
       const updateMessage = await prisma.message.update({
         where: { id: messageId },
         data: { content },
+        include: {
+          sender: true,
+        },
       });
       await pusherServer.trigger(room, "update-message", updateMessage);
     }

@@ -1,10 +1,15 @@
 "use client";
-import { Message } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import CreateMessage from "./CreateMessage";
 import MessageDesign from "./MessageDesign";
 import { useEffect, useState } from "react";
 import { pusherClient } from "@/lib/pusherClient";
 // ================================================
+type Message = Prisma.MessageGetPayload<{
+  include: {
+    sender: true;
+  };
+}>;
 interface MessagesProps {
   messages: Message[];
   userSessionId: string;
@@ -54,7 +59,7 @@ function Messages({
 
   return (
     <>
-      <div className="h-[calc(100%-148px)] overflow-y-auto overflow-x-hidden space-y-2 no-scrollbar">
+      <div className="h-[calc(100%-148px)] overflow-y-auto overflow-x-hidden space-y-3 no-scrollbar">
         {messages.length > 0 &&
           messages.map((message) => (
             <MessageDesign
