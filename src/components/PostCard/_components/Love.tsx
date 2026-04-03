@@ -1,5 +1,5 @@
 "use client";
-import {  LoveAction } from "@/lib/Actions/Create/LoveForPost.action";
+import { LoveAction } from "@/lib/Actions/Create/LoveForPost.action";
 import { PostDbCacheType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,7 +25,13 @@ function Love({ userId, post }: { userId: string; post: PostDbCacheType }) {
       disabled={loading}
       className="flex button items-center gap-1 cursor-pointer text-[17px] hover:scale-110 transition-css active:scale-95"
     >
-      {isExistingLove ? <FaHeart className="fill-red-500" /> : <FaRegHeart />}
+      {loading ? (
+        <div className="size-4 rounded-full border-2 border-t-transparent border-b-transparent border-red-500 animate-spin"/>
+      ) : isExistingLove ? (
+        <FaHeart className="fill-red-500" />
+      ) : (
+        <FaRegHeart />
+      )}
       <span className="text-sm font-semibold">{post.loves.length}</span>
     </button>
   );

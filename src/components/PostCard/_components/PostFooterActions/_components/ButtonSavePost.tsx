@@ -35,7 +35,9 @@ function ButtonSavePost({
       disabled={loading}
       className="flex items-center  gap-1 cursor-pointer text-[17px] hover:scale-110 transition-css active:scale-95"
     >
-      {isExistingSavePost ? (
+      {loading ? (
+        <div className="size-4 rounded-full border-2 border-t-transparent border-b-transparent border-green-500 animate-spin"/>
+      ) : isExistingSavePost ? (
         <FaBookmark className="text-green-500" />
       ) : (
         <FaRegBookmark />

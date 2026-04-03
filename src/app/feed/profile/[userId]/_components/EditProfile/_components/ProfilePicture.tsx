@@ -53,6 +53,7 @@ function ProfilePicture({
         id="profile_picture"
         hidden
         className="hidden"
+        accept="image/*"
       />
     </div>
   );

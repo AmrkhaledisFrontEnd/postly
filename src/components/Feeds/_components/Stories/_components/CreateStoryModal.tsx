@@ -6,11 +6,10 @@ import StoryContent from "./StoryContent";
 import Colors from "./Colors";
 import StoryContentTypeSelector from "./StoryContentTypeSelector";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { CreateStoryAction } from "@/lib/Actions/Create/CreateStory.action";
-import Blur from "@/components/Blur/Blur";
 import { useRouter } from "next/navigation";
 import { uploadMedia } from "@/lib/uplaodMedia";
+import { createPortal } from "react-dom";
 // ================================================================================
 function CreateStoryModal({
   setIsModalOpen,
@@ -21,13 +20,23 @@ function CreateStoryModal({
   isModalOpen: boolean;
   userId: string;
 }) {
+  const [mounted, setMounted] = useState(false);
   const bg_colors = [
-    "#4f46e5",
-    "#7c3aed",
-    "#db2777",
-    "#e11d48",
-    "#ca8a04",
-    "#0d9488",
+    "#4f46e5", // أزرق بنفسجي
+    "#7c3aed", // بنفسجي
+    "#db2777", // فوشيا قوي
+    "#e11d48", // أحمر وردي
+    "#ca8a04", // أصفر داكن
+    "#0d9488", // تركواز داكن
+    "#000000", // أسود
+    "#f97316", // برتقالي حيوي
+    "#16a34a", // أخضر زاهي
+    "#0284c7", // أزرق سماوي
+    "#9333ea", // بنفسجي فاتح
+    "#b91c1c", // أحمر غامق
+    "#14b8a6", // تركواز فاتح
+    "#facc15", // أصفر فاتح
+    "#f43f5e", // وردي حيوي
   ];
   const [loading, setLoading] = useState(false);
   const [storyBgColor, setStoryBgColor] = useState(bg_colors[0]);
@@ -37,6 +46,7 @@ function CreateStoryModal({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const router = useRouter();
   useEffect(() => {
+    setMounted(true);
     if (textareaRef.current) textareaRef.current.focus();
   }, [isModalOpen, !mediaPreview]);
   useEffect(() => {
@@ -94,17 +104,17 @@ function CreateStoryModal({
       setLoading(false);
     }
   };
-  return (
-    <div className="fixed inset-0 px-4 bg-black/80 z-40 backdrop-blur flex items-center justify-center text-white">
+  const modalContent = (
+    <div className="fixed inset-0 px-4 bg-black/80 z-50 backdrop-blur flex items-center justify-center text-white">
       <div className="md:w-120 w-full sm:space-y-3 space-y-1 boxCreateStory relative">
         <div className="w-full flex items-center justify-between">
           <button
             onClick={() => setIsModalOpen(false)}
-            className="cursor-pointer text-xl"
+            className="cursor-pointer sm:text-xl"
           >
             <FaArrowLeft />
           </button>
-          <p className="text-xl font-semibold">Create story</p>
+          <p className="sm:text-xl font-semibold">Create story</p>
         </div>
         <StoryContent
           mediaFile={mediaFile}
@@ -142,6 +152,8 @@ function CreateStoryModal({
       </div>
     </div>
   );
+  if (!mounted) return;
+  return createPortal(modalContent, document.body);
 }
 
 export default CreateStoryModal;

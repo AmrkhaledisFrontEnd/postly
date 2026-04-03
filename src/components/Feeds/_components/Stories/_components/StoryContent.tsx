@@ -51,9 +51,11 @@ function StoryContent({
           placeholder="What's on your mind?"
         />
       )}
-      <span className="absolute bottom-2 left-1 text-xs font-semibold">
-        Characters : {text.trim().length}
-      </span>
+      {!mediaFile && (
+        <span className="absolute bottom-2 left-1 sm:text-xs text-[10px] font-semibold">
+          Characters : {text.trim().length}
+        </span>
+      )}
     </div>
   );
 }

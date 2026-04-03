@@ -3,15 +3,13 @@ import { GetSession } from "@/lib/GetSession";
 import { User } from "@prisma/client";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { MdChatBubbleOutline } from "react-icons/md";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
+import UserActions from "./_components/UserActions";
 // ========================================================================
-export const metadata:Metadata={
-  title:"Postly | Messages",
-  description:"Talk to your friends and family"
-}
+export const metadata: Metadata = {
+  title: "Postly | Messages",
+  description: "Talk to your friends and family",
+};
 async function page() {
   const userSession = await GetSession();
   if (!userSession) return redirect("/login");
@@ -42,7 +40,7 @@ async function page() {
           uniqueUsers.map((user: User) => (
             <li
               key={user.id}
-              className="shadow bg-white sm:p-5 p-3 rounded-md flex items-center justify-between gap-5"
+              className="shadow bg-white sm:p-5 p-3 rounded-md flex flex-col justify-between gap-5"
             >
               <div className="flex gap-2 items-center">
                 <Image
@@ -64,20 +62,7 @@ async function page() {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3 text-gray-500">
-                <Link
-                  href={`/feed/messages/${user.id}`}
-                  className="sm:text-[18px] cursor-pointer hover:text-black transition-css active:scale-95 hover:scale-104 bg-gray-100 p-2 rounded-md"
-                >
-                  <MdChatBubbleOutline />
-                </Link>
-                <Link
-                  href={`/feed/profile/${user.id}`}
-                  className="sm:text-[18px] cursor-pointer hover:text-black transition-css active:scale-95 hover:scale-104 bg-gray-100 p-2 rounded-md"
-                >
-                  <MdOutlineRemoveRedEye />
-                </Link>
-              </div>
+              <UserActions user={user} userSession={userSession} />
             </li>
           ))}
       </ul>

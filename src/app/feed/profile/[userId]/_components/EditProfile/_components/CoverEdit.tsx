@@ -52,6 +52,7 @@ function CoverEdit({
         hidden
         className="hidden"
         id="cover"
+        accept="image/*"
       />
     </div>
   );

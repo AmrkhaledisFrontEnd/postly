@@ -21,7 +21,11 @@ export async function generateMetadata({
     },
   });
   if (!user) return { title: "No User Found" };
-  return { title: user.name, description: user.bio };
+  return {
+    title:
+      user.name!.slice(0, 1).toUpperCase() + user.name!.slice(1).toLowerCase(),
+    description: user.bio,
+  };
 }
 async function Profile({ params }: { params: Promise<{ userId: string }> }) {
   const userSession = await GetSession();
