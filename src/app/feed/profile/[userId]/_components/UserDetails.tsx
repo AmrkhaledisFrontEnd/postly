@@ -39,12 +39,14 @@ function UserDetails({
         <h2 className="lg:text-3xl sm:text-2xl text-xl font-bold capitalize">
           {user.name}
         </h2>
-        <button
-          onClick={() => setIsEditProfile(true)}
-          className="flex shrink-0 h-fit items-center border border-gray-100 rounded-md py-2 px-4 font-semibold text-slate-500 hover:shadow transition-css cursor-pointer gap-1.5 lg:text-[15px] sm:text-sm text-xs"
-        >
-          <FaRegEdit className="sm:size-5 size-4" /> Edit
-        </button>
+        {user.id === userSession.id && (
+          <button
+            onClick={() => setIsEditProfile(true)}
+            className="flex shrink-0 h-fit items-center border border-gray-100 rounded-md py-2 px-4 font-semibold text-slate-500 hover:shadow transition-css cursor-pointer gap-1.5 lg:text-[15px] sm:text-sm text-xs"
+          >
+            <FaRegEdit className="sm:size-5 size-4" /> Edit
+          </button>
+        )}
       </div>
       {user.id !== userSession.id && (
         <div className="flex items-center gap-2 flex-wrap">
