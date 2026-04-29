@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Postly - Full Stack Social Media Platform
 
-## Getting Started
+منصة تواصل اجتماعي متكاملة تهدف لتقديم تجربة تفاعلية سريعة، تتيح للمستخدمين التواصل عبر الشات اللحظي، مشاركة الحالات (Stories)، ومتابعة الأصدقاء.
 
-First, run the development server:
+## 🚀 التقنيات المستخدمة (Tech Stack)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** Next.js (App Router)
+- **Database:** PostgreSQL & Prisma ORM (Relational Database Design)
+- **Real-time:** Pusher (WebSockets) for Instant Messaging
+- **Security:** Bcryptjs for Password Hashing
+- **Validation:** Zod (Schema Validation)
+- **Backend Logic:** Next.js Server Actions
+- **Styling:** Tailwind CSS (Modern & Responsive UI)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ المميزات الرئيسية (Key Features)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Real-time Messaging:** شات لحظي سريع جداً باستخدام WebSockets.
+- **Social Graph:** نظام متابعين ومتابعات (Follow/Unfollow System) مع تحديثات لحظية.
+- **Post & Stories:** إمكانية إضافة بوستات وحالات (Stories) تختفي أو تظهر حسب تفاعل المستخدم.
+- **User Profiles:** صفحات شخصية لكل مستخدم تعرض بياناته، منشوراته، وإحصائياته.
+- **Secure Auth:** نظام تسجيل دخول آمن بالكامل مع تشفير كلمات المرور باستخدام Bcryptjs.
+- **Optimized Performance:** استخدام Server Components لتقليل حجم الـ JavaScript المرسل للمتصفح.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ تشغيل المشروع (Local Setup)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repo:
+   ```bash
+   git clone [https://github.com/AmrKhaledDev/Postly.git](https://github.com/AmrKhaledDev/Postly.git)
